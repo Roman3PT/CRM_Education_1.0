@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Авторизация</title>
+    <h:outputStylesheet name="bodyStyle.css" library="css"/>
+    <h:outputStylesheet name="mainPage.css" library="css"/>
+</h:head>
+
+<h:body styleClass="bodyBackground">
+    <div class="headerCF">
+        <div class="main-menu">
+            <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
+            <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
+                             styleClass="infoButton"/>
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
+                             update="@this growl"
+                             styleClass="exitButton">
+            </p:commandButton>
+        </div>
+    </div>
+    <p:dialog header="Информация о проекте" widgetVar="dlg" modal="true" height="200" width="400">
+        <h:outputText
+                value="Данное программное обеспечение разрабатывалось при помощи заведующего кафедры Смелова В.В.
+                 и студента дипломника Богатко Р. И. Всю контактную информацию вы можете найти по ссылке."/>
+        <br/>
+        <a href="https://e.mail.ru/compose/">romanbogatko1998@mail.ru</a>
+    </p:dialog>
+    <p:sidebar id="TreeItems" widgetVar="sidebar1" baseZIndex="10000">
+        <h1 style="font-weight:normal">Меню</h1>
+        <h:form>
+            <p:inputText styleClass="search_input" placeholder="Поиск"/>
+            <br/><br/>
+            <p:tree id="TreeSet" value="#{mainPage.root}" var="node" selectionMode="single"
+                    selection="#{mainPage.selectionNode}" process="@this"
+                    update="@this">
+                <p:treeNode>
+                    <p:commandLink value="#{node}">
+                    </p:commandLink>
+                </p:treeNode>
+            </p:tree>
+            <br/><br/>
+            <p:commandButton id="ChooseTreeItem" value="Поиск" styleClass="queryButton" process="@this TreeSet"
+                             update="@this TreeSet" action="#{mainPage.goToPage}"/>
+        </h:form>
+    </p:sidebar>
+    <div>
+        <div style="display: flex; margin-top: 4px;">
+            <p:panel id="FastMenu" header="Главное меню"
+                     footer="ООО 'СофтКлуб - Центр разработки' "
+                     styleClass="leftMenu">
+                <p:inputText styleClass="search_input" placeholder="Поиск"/>
+                <br/><br/>
+
+                <p:commandButton id="sarchItem" value="Поиск" styleClass="queryButton" process="@this"/>
+                <br/><br/>
+
+                <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"/>
+                <br/><br/>
+
+                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this"/>
+                <br/><br/>
+
+                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this"/>
+                <br/><br/>
+            </p:panel>
+            <p:dataTable id="Event">
+                <p:column headerText="Номер">
+                    <h:outputText value="1"/>
+                </p:column>
+                <p:column headerText="Тип">
+                    <h:outputText value="Собеседование"/>
+                </p:column>
+                <p:column headerText="Событие">
+                    <h:outputText value="Собеседование в компании SoftClub"/>
+                </p:column>
+                <p:column headerText="Студент">
+                    <h:outputText value="Богатко Роман Игоревич"/>
+                </p:column>
+                <p:column headerText="Компания">
+                    <h:outputText value="ООО SoftClub"/>
+                </p:column>
+                <p:column headerText="Описание">
+                    <h:outputText value="Данный студент успешно прошел собеседование. Попал на 3 месячную стажировку, окончил ее хорошо.
+                     На данный момент работает в этой компании техником-программистом"/>
+                </p:column>
+            </p:dataTable>
+        </div>
+    </div>
+    <div class="footerDown">
+        <h:graphicImage value="PrimeFaces-logo.png"/>
+        <div class="marginLeftFooter">
+            <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
+        </div>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Авторизация</title>
+    <h:outputStylesheet name="bodyStyle.css" library="css"/>
+</h:head>
+
+<h:body styleClass="bodyBackground">
+    <p:graphicImage value="resources/image/crm_logo.png" styleClass="logoImage"/>
+    <h:form id="formAuthorization" styleClass="formStyle">
+        <p:outputLabel value="CRM_Education" styleClass="logo"/>
+        <br/><br/>
+
+        <p:messages id="msgs" closable="true" showSummary="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <p:inputText id="login"
+                     placeholder="info@info.by"
+                     required="true"
+                     process="@this"
+                     update="@this"
+                     value="#{authorization.login}"
+                     requiredMessage="Логин обязателен для ввода!"
+                     validatorMessage="Логин: от 5 до 15 символов"
+                     styleClass="ui-inputfield ui-inputtext inputText">
+            <f:validateRequired/>
+            <f:validateLength minimum="5" maximum="15"/>
+        </p:inputText>
+
+        <br/><br/>
+
+        <p:password id="password"
+                    placeholder="roman1234"
+                    required="true"
+                    process="@this"
+                    update="@this"
+                    value="#{authorization.password}"
+                    requiredMessage="Пароль обязателен для ввода!"
+                    validatorMessage="Пароль: от 5 до 15 символов"
+                    styleClass="ui-inputfield ui-inputtext inputText">
+            <f:validateRequired/>
+            <f:validateLength minimum="5" maximum="15"/>
+        </p:password>
+
+        <br/><br/>
+
+        <p:commandButton id="signIn"
+                         value="Войти"
+                         styleClass="signIn"
+                         process="@this formAuthorization"
+                         actionListener="#{authorization.signIn}"/>
+    </h:form>
+</h:body>
+</html>

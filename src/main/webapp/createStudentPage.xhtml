@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Создание студента</title>
+    <h:outputStylesheet name="bodyStyle.css" library="css"/>
+    <h:outputStylesheet name="mainPage.css" library="css"/>
+    <h:outputStylesheet name="CreateStudent.css" library="css"/>
+</h:head>
+<h:body styleClass="bodyBackground">
+    <div class="headerCF">
+        <div class="main-menu">
+            <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
+            <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
+                             styleClass="infoButton"/>
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
+                             update="@this growl"
+                             styleClass="exitButton">
+            </p:commandButton>
+        </div>
+    </div>
+    <p:dialog header="Информация о проекте" widgetVar="dlg" modal="true" height="200" width="400">
+        <h:outputText
+                value="Данное программное обеспечение разрабатывалось при помощи заведующего кафедры Смелова В.В.
+                 и студента дипломника Богатко Р. И. Всю контактную информацию вы можете найти по ссылке."/>
+        <br/>
+        <a href="https://e.mail.ru/compose/">romanbogatko1998@mail.ru</a>
+    </p:dialog>
+    <p:sidebar id="TreeItems" widgetVar="sidebar1" baseZIndex="10000">
+        <h1 style="font-weight:normal">Меню</h1>
+        <h:form>
+            <p:inputText styleClass="search_input" placeholder="Поиск"/>
+            <br/><br/>
+            <p:tree id="TreeSet" value="#{mainPage.root}" var="node" selectionMode="single"
+                    selection="#{mainPage.selectionNode}" process="@this"
+                    update="@this">
+                <p:treeNode>
+                    <p:commandLink value="#{node}" action="#{mainPage.goToPage}" process="@this"
+                                   update="@this TreeSet">
+                        <p:ajax update="@this TreeSet" process="@this TreeSet" event="click"/>
+                    </p:commandLink>
+                </p:treeNode>
+            </p:tree>
+            <br/><br/>
+        </h:form>
+    </p:sidebar>
+    <div>
+        <div style="display: flex; margin-top: 4px;">
+            <p:panel id="FastMenu"
+                     header="Добавление студента"
+                     footer="Белорусский Государственный Технологический Университет"
+                     styleClass="centerAddMenu">
+                <h:form style="margin-left: 5%; ">
+                    <p:outputLabel value="Имя: *"/>
+                    <p:inputText placeholder="Роман" value="#{studentBean.name}" style="margin-left: 3%;">
+                        <p:ajax process="@this" partialSumbit="true"/>
+                    </p:inputText>
+                    <br/><br/>
+
+                    <p:outputLabel value="Фамилия: *"/>
+                    <p:inputText placeholder="Богатко" value="#{studentBean.surname}" style="margin-left: 3%;">
+                        <p:ajax process="@this" partialSumbit="true"/>
+                    </p:inputText>
+                    <br/><br/>
+
+                    <p:outputLabel value="Отчество: *"/>
+                    <p:inputText placeholder="Игоревич" value="#{studentBean.secondName}" style="margin-left: 3%;">
+                        <p:ajax process="@this" partialSumbit="true"/>
+                    </p:inputText>
+                    <br/><br/>
+
+                    <p:outputLabel value="Выберите Специальность: *"/>
+                    <p:selectOneMenu id="country" placeholder="ПОИБМС" value="#{studentBean.specialty}"
+                                     style="width:150px; margin-left: 3%;">
+                        <f:selectItem itemLabel="ИСиТ" itemValue="ИСиТ"/>
+                        <f:selectItem itemLabel="ПОИТ" itemValue="ПОИТ" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="ПОИБМС" itemValue="ПОИБМС" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="ДЭиВИ" itemValue="ДЭиВИ" noSelectionOption="true"/>
+                    </p:selectOneMenu>
+                    <br/><br/>
+
+                    <p:outputLabel value="Введите дату рождения: *"/>
+                    <p:inputMask id="date" value="#{studentBean.date}" placeholder="23.06.1998" mask="99.99.9999"
+                                 style="margin-left: 3%;">
+                        <p:ajax process="@this" partialSumbit="true"/>
+                    </p:inputMask>
+                    <br/><br/>
+
+                    <p:outputLabel value="Введите мобильный номер : *"/>
+                    <p:inputMask id="phoneNumber" value="#{studentBean.phoneNumber}" placeholder="+375 (44) 548-44-03"
+                                 mask="+375 (99) 999-99-99" style="margin-left: 3%;">
+                        <p:ajax process="@this" partialSumbit="true"/>
+                    </p:inputMask>
+                    <br/><br/>
+
+                    <p:outputLabel value="Студент учиться: *"/>
+                    <p:selectOneMenu immediate="true" id="Study" style="width:150px; margin-left: 3%;"
+                                     value="#{studentBean.study}"
+                                     placeholder="Да">
+                        <f:selectItem itemLabel="Да" itemValue="Да"/>
+                        <f:selectItem itemLabel="Нет" itemValue="Нет"/>
+                    </p:selectOneMenu>
+                    <br/><br/>
+
+                    <p:outputLabel value="Введите рейтинг по студенту: "/>
+                    <p:spinner placeholder="Рейтинг:" id="rating" value="#{studentBean.rating}" min="1" max="10"
+                               style="margin-left: 3%;"/>
+                    <br/><br/>
+                    <div>
+                        <p:commandButton id="Back" value="Назад" styleClass="backAndAddB" process="@this FastMenu"
+                                         update="@this FastMenu" action="#{studentBean.back}"/>
+                        <p:commandButton id="Addition" value="Добавить" styleClass="backAndAddB"
+                                         process="@this FastMenu" update="@this FastMenu" action="#{studentBean.add}"/>
+                    </div>
+                </h:form>
+            </p:panel>
+        </div>
+    </div>
+    <div class="footerDownStudent">
+        <h:graphicImage value="PrimeFaces-logo.png"/>
+        <div class="marginLeftFooter">
+            <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
+        </div>
+    </div>
+</h:body>
+</html>
