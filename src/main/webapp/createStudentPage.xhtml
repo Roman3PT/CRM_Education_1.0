@@ -59,26 +59,26 @@
                      styleClass="centerAddMenu">
                 <h:form style="margin-left: 5%; ">
                     <p:outputLabel value="Имя: *"/>
-                    <p:inputText placeholder="Роман" value="#{studentBean.name}" style="margin-left: 3%;">
+                    <p:inputText placeholder="Роман" value="#{studentBean.name}" style="margin-left: 12.2%; width: 231px;">
                         <p:ajax process="@this" partialSumbit="true"/>
                     </p:inputText>
                     <br/><br/>
 
                     <p:outputLabel value="Фамилия: *"/>
-                    <p:inputText placeholder="Богатко" value="#{studentBean.surname}" style="margin-left: 3%;">
+                    <p:inputText placeholder="Богатко" value="#{studentBean.surname}" style="margin-left: 8.6%; width: 231px;">
                         <p:ajax process="@this" partialSumbit="true"/>
                     </p:inputText>
                     <br/><br/>
 
                     <p:outputLabel value="Отчество: *"/>
-                    <p:inputText placeholder="Игоревич" value="#{studentBean.secondName}" style="margin-left: 3%;">
+                    <p:inputText placeholder="Игоревич" value="#{studentBean.secondName}" style="margin-left: 8.5%; width: 231px;">
                         <p:ajax process="@this" partialSumbit="true"/>
                     </p:inputText>
                     <br/><br/>
 
-                    <p:outputLabel value="Выберите Специальность: *"/>
+                    <p:outputLabel value="Специальность: *"/>
                     <p:selectOneMenu id="country" placeholder="ПОИБМС" value="#{studentBean.specialty}"
-                                     style="width:150px; margin-left: 3%;">
+                                     style="width:217px; margin-left: 4%;">
                         <f:selectItem itemLabel="ИСиТ" itemValue="ИСиТ"/>
                         <f:selectItem itemLabel="ПОИТ" itemValue="ПОИТ" noSelectionOption="true"/>
                         <f:selectItem itemLabel="ПОИБМС" itemValue="ПОИБМС" noSelectionOption="true"/>
@@ -86,22 +86,22 @@
                     </p:selectOneMenu>
                     <br/><br/>
 
-                    <p:outputLabel value="Введите дату рождения: *"/>
+                    <p:outputLabel value="Дата рождения: *"/>
                     <p:inputMask id="date" value="#{studentBean.date}" placeholder="23.06.1998" mask="99.99.9999"
-                                 style="margin-left: 3%;">
+                                 style="margin-left: 4%; width: 231px;">
                         <p:ajax process="@this" partialSumbit="true"/>
                     </p:inputMask>
                     <br/><br/>
 
-                    <p:outputLabel value="Введите мобильный номер : *"/>
+                    <p:outputLabel value="Мобильный номер : *"/>
                     <p:inputMask id="phoneNumber" value="#{studentBean.phoneNumber}" placeholder="+375 (44) 548-44-03"
-                                 mask="+375 (99) 999-99-99" style="margin-left: 3%;">
+                                 mask="+375 (99) 999-99-99" style="margin-left: 1%; width: 231px;">
                         <p:ajax process="@this" partialSumbit="true"/>
                     </p:inputMask>
                     <br/><br/>
 
                     <p:outputLabel value="Студент учиться: *"/>
-                    <p:selectOneMenu immediate="true" id="Study" style="width:150px; margin-left: 3%;"
+                    <p:selectOneMenu immediate="true" id="Study" style="width:217px; margin-left: 3%;"
                                      value="#{studentBean.study}"
                                      placeholder="Да">
                         <f:selectItem itemLabel="Да" itemValue="Да"/>
@@ -109,9 +109,9 @@
                     </p:selectOneMenu>
                     <br/><br/>
 
-                    <p:outputLabel value="Введите рейтинг по студенту: "/>
+                    <p:outputLabel value="Рейтинг: "/>
                     <p:spinner placeholder="Рейтинг:" id="rating" value="#{studentBean.rating}" min="1" max="10"
-                               style="margin-left: 3%;"/>
+                               style="margin-left: 10%;"/>
                     <br/><br/>
                     <div>
                         <p:commandButton id="Back" value="Назад" styleClass="backAndAddB" process="@this FastMenu"
