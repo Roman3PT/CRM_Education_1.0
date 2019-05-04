@@ -24,3 +24,16 @@
     font-size: 12px;
     color: #333333;
 }
+
+.description {
+    position: absolute;
+    margin-left: 25%;
+
+}
+
+.descriptionIn {
+    position: absolute;
+    margin-left: 24%;
+    width: 34%;
+    height: 350px
+}

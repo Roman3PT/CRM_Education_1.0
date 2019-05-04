@@ -25,6 +25,7 @@ public class StudentBean {
     private String phoneNumber;
     private boolean study;
     private Integer rating;
+    private String description;
 
     @PostConstruct
     public void init() {
@@ -39,6 +40,10 @@ public class StudentBean {
     }
 
     public void add() {
+
+    }
+
+    public void update() {
 
     }
 }

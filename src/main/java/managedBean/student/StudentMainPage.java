@@ -22,4 +22,12 @@ public class StudentMainPage implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public void goToUpdateStudent() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("updateStudentPage.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
