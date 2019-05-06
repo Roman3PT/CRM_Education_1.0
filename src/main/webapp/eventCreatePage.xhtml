@@ -17,8 +17,9 @@
     <div class="headerCF">
         <div class="main-menu">
             <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
+            <p:outputLabel value="МЕНЮ СОБЫТИЙ" styleClass="qwerty"/>
             <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
-                             styleClass="infoButton"/>
+                             style="margin-left: 35%"/>
             <p:growl id="growl" showDetail="true" sticky="true"/>
             <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
                              update="@this growl"
