@@ -61,13 +61,15 @@
                 <p:commandButton id="sarchItem" value="Поиск" styleClass="queryButton" process="@this"/>
                 <br/><br/>
 
-                <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"/>
+                <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
+                                 action="#{mainPage.goToAddEvent}"/>
                 <br/><br/>
 
                 <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this"/>
                 <br/><br/>
 
-                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this"/>
+                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this"
+                                 action="#{mainPage.goToUpdateEvent}"/>
                 <br/><br/>
             </p:panel>
             <p:dataTable id="Event" scrollable="true" scrollHeight="1000">

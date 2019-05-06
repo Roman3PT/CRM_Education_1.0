@@ -52,6 +52,24 @@
     </p:sidebar>
     <div>
         <div style="display: flex; margin-top: 4px;">
+            <p:panel id="FastMenu" header="Главное меню"
+                     footer="ООО 'СофтКлуб - Центр разработки' "
+                     styleClass="leftMenu">
+                <p:inputText styleClass="search_input" placeholder="Поиск"/>
+                <br/><br/>
+
+                <p:commandButton id="sarchItem" value="Поиск" styleClass="queryButton" process="@this"/>
+                <br/><br/>
+
+                <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"/>
+                <br/><br/>
+
+                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this"/>
+                <br/><br/>
+
+                <p:commandButton id="asd" value="Удалить" styleClass="queryButton" process="@this"/>
+                <br/><br/>
+            </p:panel>
             <p:dataTable id="Contact">
                 <p:column headerText="Номер">
                     <h:outputText value="1"/>
@@ -76,10 +94,8 @@
         </div>
     </div>
     <div class="footerDown">
-        <h:graphicImage value="PrimeFaces-logo.png"/>
-        <div class="marginLeftFooter">
-            <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
-        </div>
+        <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
+        <h:graphicImage value="resources/image/PrimeFaces-logo2.png" style="margin-left: 80%"/>
     </div>
 </h:body>
 </html>

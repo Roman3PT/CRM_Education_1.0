@@ -23,7 +23,7 @@ public class Authorization implements Serializable {
     public void signIn() {
         if (login.equals("admin") && password.equals("admin"))
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("mainPage.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("eventMainPage.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }

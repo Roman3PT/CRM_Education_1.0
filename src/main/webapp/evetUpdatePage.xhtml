@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Создание студента</title>
+    <h:outputStylesheet name="bodyStyle.css" library="css"/>
+    <h:outputStylesheet name="mainPage.css" library="css"/>
+    <h:outputStylesheet name="CreateStudent.css" library="css"/>
+    <link rel="shortcut icon" href="resources/image/CRM_Education_icon.png" type="image/png"/>
+</h:head>
+<h:body styleClass="bodyBackground">
+    <div class="headerCF">
+        <div class="main-menu">
+            <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
+            <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
+                             styleClass="infoButton"/>
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
+                             update="@this growl"
+                             styleClass="exitButton">
+            </p:commandButton>
+        </div>
+    </div>
+    <p:dialog header="Информация о проекте" widgetVar="dlg" modal="true" height="200" width="400">
+        <h:outputText
+                value="Данное программное обеспечение разрабатывалось при помощи заведующего кафедры Смелова В.В.
+                 и студента дипломника Богатко Р. И. Всю контактную информацию вы можете найти по ссылке."/>
+        <br/>
+        <a href="https://e.mail.ru/compose/">romanbogatko1998@mail.ru</a>
+    </p:dialog>
+    <p:sidebar id="TreeItems" widgetVar="sidebar1" baseZIndex="10000">
+        <h1 style="font-weight:normal">Меню</h1>
+        <h:form>
+            <p:inputText styleClass="search_input" placeholder="Поиск"/>
+            <br/><br/>
+            <p:tree id="TreeSet" value="#{mainPage.root}" var="node" selectionMode="single"
+                    selection="#{mainPage.selectionNode}" process="@this"
+                    update="@this">
+                <p:treeNode>
+                    <p:commandLink value="#{node}">
+                    </p:commandLink>
+                </p:treeNode>
+            </p:tree>
+            <br/><br/>
+            <p:commandButton id="ChooseTreeItem" value="Поиск" styleClass="queryButton" process="@this TreeSet"
+                             update="@this TreeSet" action="#{mainPage.goToPage}"/>
+        </h:form>
+    </p:sidebar>
+    <div>
+        <div style="display: flex; margin-top: 4px;">
+            <p:panel id="FastMenu"
+                     header="Добавление события"
+                     footer="Белорусский Государственный Технологический Университет"
+                     styleClass="centerAddMenu">
+                <div>
+                    <h:form style="margin-left: 5%; ">
+                        <p:outputLabel value="Описание: *" styleClass="description"/>
+                        <p:inputTextarea maxlength="256" scrollHeight="400" value="#{eventUpdatePage.description}"
+                                         style="position: absolute;
+                                                margin-left: 24%;
+                                                margin-top: 2%;
+                                                width: 34%;">
+                            <p:ajax process="@this" partialSumbit="true"/>
+                        </p:inputTextarea>
+
+                        <p:outputLabel value="Тип: *"/>
+                        <p:selectOneMenu id="region" placeholder="Бресткая обл." value="#{eventUpdatePage.eventType}"
+                                         style="width:217px; margin-left: 6.8%;">
+                            <f:selectItem itemLabel="Практика" itemValue="Практика"/>
+                            <f:selectItem itemLabel="Собеседование" itemValue="Собеседование" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Курсы" itemValue="Курсы" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Стажировка" itemValue="Стажировка" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Работа" itemValue="Работа" noSelectionOption="true"/>
+                        </p:selectOneMenu>
+                        <br/><br/><br/>
+
+                        <p:outputLabel value="Студ. билет: *"/>
+                        <p:inputText id="ticketNumber" placeholder="71800157" value="#{eventUpdatePage.student}"
+                                     style="margin-left: 8.7%; width: 231px;">
+                            <p:ajax process="@this" partialSumbit="true"/>
+                        </p:inputText>
+                        <br/><br/><br/>
+
+                        <p:outputLabel value="Компания: *"/>
+                        <p:inputText id="street" placeholder="ООО СофтКлуб" value="#{eventUpdatePage.company}"
+                                     style="margin-left: 8.6%; width: 231px;">
+                            <p:ajax process="@this" partialSumbit="true"/>
+                        </p:inputText>
+                        <br/><br/><br/>
+                    </h:form>
+                    <div>
+                        <p:commandButton id="Back" value="Назад" styleClass="backAndAddB" process="@this FastMenu"
+                                         update="@this FastMenu" action="#{eventUpdatePage.back}"/>
+                        <p:commandButton id="Addition" value="Изменить" styleClass="backAndAddB"
+                                         process="@this FastMenu" update="@this FastMenu"
+                                         action="#{eventUpdatePage.add}"/>
+                        <br/><br/><br/>
+                    </div>
+                </div>
+            </p:panel>
+        </div>
+    </div>
+    <div class="footerDownStudent">
+        <h:graphicImage value="PrimeFaces-logo.png"/>
+        <div class="marginLeftFooter">
+            <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
+        </div>
+    </div>
+</h:body>
+</html>

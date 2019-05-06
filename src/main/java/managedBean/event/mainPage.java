@@ -1,4 +1,4 @@
-package managedBean;
+package managedBean.event;
 
 import custom_enum.TreeItems;
 import lombok.AllArgsConstructor;
@@ -32,18 +32,15 @@ public class mainPage {
         TreeNode root4 = new DefaultTreeNode("Контакты", root);
 
         root1.getChildren().add(new DefaultTreeNode("Меню студентов"));
-
         root2.getChildren().add(new DefaultTreeNode("Меню компаний"));
-
         root3.getChildren().add(new DefaultTreeNode("Меню событий"));
-
         root4.getChildren().add(new DefaultTreeNode("Список контактов"));
     }
 
     public void goToPage() {
         try {
             if (selectionNode.toString().equals(TreeItems.ITEM1.getName()))
-                FacesContext.getCurrentInstance().getExternalContext().redirect("mainPage.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("eventMainPage.xhtml");
             else if (selectionNode.toString().equals(TreeItems.ITEM2.getName()))
                 FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
             else if (selectionNode.toString().equals(TreeItems.ITEM3.getName()))
@@ -58,6 +55,22 @@ public class mainPage {
     public void exit() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("authorizationPage.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goToAddEvent() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("eventCreatePage.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goToUpdateEvent() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("eventCreatePage.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

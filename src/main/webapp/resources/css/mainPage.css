@@ -29,7 +29,7 @@
 }
 
 .leftMenu {
-    width: 260px;
+    width: 300px;
     min-height: calc(100vh - 13vh);
 }
 
@@ -43,7 +43,7 @@
 .footerDown {
     background-color: #135676;
     flex-direction: row;
-    height: 15px;
+    height: 25px;
     flex: 0 0 auto;
     padding: 8px 0 8px 24px;
     margin-top: 4px;
