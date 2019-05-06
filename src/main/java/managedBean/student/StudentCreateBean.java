@@ -18,6 +18,7 @@ import java.io.Serializable;
 @RequestScoped
 public class StudentCreateBean implements Serializable {
 
+    private long id;
     private String name;
     private String surname;
     private String secondName;

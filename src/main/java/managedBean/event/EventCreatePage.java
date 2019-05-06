@@ -18,6 +18,7 @@ import java.io.Serializable;
 @SessionScoped
 public class EventCreatePage implements Serializable {
 
+    private Long id;
     private String eventType;
     private String student;
     private String company;

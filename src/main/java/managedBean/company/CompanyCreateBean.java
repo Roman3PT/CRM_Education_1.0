@@ -15,6 +15,7 @@ import java.io.Serializable;
 @RequestScoped
 public class CompanyCreateBean implements Serializable {
 
+    private Long id;
     private String name;
     private String region;
     private String city;

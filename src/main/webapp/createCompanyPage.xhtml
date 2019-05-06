@@ -60,10 +60,11 @@
                      styleClass="centerAddMenu">
                 <div>
                     <h:form style="margin-left: 5%; ">
+                        <br/><br/>
                         <p:outputLabel value="Описание: *" styleClass="description"/>
                         <p:inputTextarea maxlength="256" scrollHeight="400" value="#{companyCreateBean.description}"
                                          style="position: absolute;
-                                                margin-left: 24%;
+                                                margin-left: 28%;
                                                 margin-top: 2%;
                                                 width: 34%;">
                             <p:ajax process="@this" partialSumbit="true"/>
@@ -122,7 +123,6 @@
         </div>
     </div>
     <div class="footerDownStudent">
-        <h:graphicImage value="PrimeFaces-logo.png"/>
         <div class="marginLeftFooter">
             <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
         </div>

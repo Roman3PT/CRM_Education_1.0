@@ -17,7 +17,7 @@
     <div class="headerCF">
         <div class="main-menu">
             <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
-            <p:outputLabel value="МЕНЮ СТУДЕНТОВ" styleClass="qwerty"/>
+            <p:outputLabel value="МЕНЮ СТУДЕНТОВ" styleClass="qwertyStudent"/>
             <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
                              style="margin-left: 35%"/>
             <p:growl id="growl" showDetail="true" sticky="true"/>
@@ -60,10 +60,11 @@
                      styleClass="centerAddMenu">
                 <div>
                     <h:form style="margin-left: 5%; ">
+                        <br/>
                         <p:outputLabel value="Описание: *" styleClass="description"/>
-                        <p:inputTextarea maxlength="1000" value="#{studentCreateBean.surname}"
+                        <p:inputTextarea maxlength="256" value="#{studentCreateBean.surname}"
                                          style="position: absolute;
-                                                margin-left: 24%;
+                                                margin-left: 28%;
                                                 margin-top: 2%;
                                                 width: 34%;">
                             <p:ajax process="@this" partialSumbit="true"/>
@@ -150,7 +151,6 @@
         </div>
     </div>
     <div class="footerDownStudent">
-        <h:graphicImage value="PrimeFaces-logo.png"/>
         <div class="marginLeftFooter">
             <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
         </div>

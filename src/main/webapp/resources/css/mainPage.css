@@ -67,7 +67,15 @@
 
 .qwerty {
     font-family: sans-serif;
-    font-size: 40px;
+    font-size: 34px;
+    margin-left: 25%;
+    color: white;
+    font-weight: bold;
+}
+
+.qwertyStudent {
+    font-family: sans-serif;
+    font-size: 33px;
     margin-left: 25%;
     color: white;
     font-weight: bold;

@@ -60,6 +60,8 @@
                      styleClass="centerAddMenu">
                 <div>
                     <h:form style="margin-left: 5%; ">
+                        <br/><br/>
+
                         <p:outputLabel value="Описание: *" styleClass="description"/>
                         <p:inputTextarea maxlength="256" scrollHeight="400" value="#{eventUpdatePage.description}"
                                          style="position: absolute;
@@ -70,8 +72,8 @@
                         </p:inputTextarea>
 
                         <p:outputLabel value="Тип: *"/>
-                        <p:selectOneMenu id="region" placeholder="Бресткая обл." value="#{eventUpdatePage.eventType}"
-                                         style="width:217px; margin-left: 6.8%;">
+                        <p:selectOneMenu id="region" placeholder="Бресткая обл." value="#{eventCreatePage.eventType}"
+                                         style="width:217px; margin-left: 7.3%;">
                             <f:selectItem itemLabel="Практика" itemValue="Практика"/>
                             <f:selectItem itemLabel="Собеседование" itemValue="Собеседование" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Курсы" itemValue="Курсы" noSelectionOption="true"/>
@@ -81,15 +83,15 @@
                         <br/><br/><br/>
 
                         <p:outputLabel value="Студ. билет: *"/>
-                        <p:inputText id="ticketNumber" placeholder="71800157" value="#{eventUpdatePage.student}"
-                                     style="margin-left: 8.7%; width: 231px;">
+                        <p:inputText id="ticketNumber" placeholder="71800157" value="#{eventCreatePage.student}"
+                                     style="margin-left: 1%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputText>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Компания: *"/>
-                        <p:inputText id="street" placeholder="ООО СофтКлуб" value="#{eventUpdatePage.company}"
-                                     style="margin-left: 8.6%; width: 231px;">
+                        <p:inputText id="street" placeholder="ООО СофтКлуб" value="#{eventCreatePage.company}"
+                                     style="margin-left: 2.3%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputText>
                         <br/><br/><br/>
@@ -107,7 +109,6 @@
         </div>
     </div>
     <div class="footerDownStudent">
-        <h:graphicImage value="PrimeFaces-logo.png"/>
         <div class="marginLeftFooter">
             <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
         </div>

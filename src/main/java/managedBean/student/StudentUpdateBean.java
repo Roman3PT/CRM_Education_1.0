@@ -19,6 +19,7 @@ import java.io.Serializable;
 @RequestScoped
 public class StudentUpdateBean implements Serializable {
 
+    private Long id;
     private String name;
     private String surname;
     private String secondName;
