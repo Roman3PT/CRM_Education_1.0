@@ -60,7 +60,7 @@
                 <div>
                     <h:form style="margin-left: 5%; ">
                         <p:outputLabel value="Описание: *" styleClass="description"/>
-                        <p:inputTextarea maxlength="1000" value="#{studentBean.surname}"
+                        <p:inputTextarea maxlength="1000" value="#{studentCreateBean.surname}"
                                          style="position: absolute;
                                                 margin-left: 24%;
                                                 margin-top: 2%;
@@ -69,28 +69,28 @@
                         </p:inputTextarea>
 
                         <p:outputLabel value="Имя: *"/>
-                        <p:inputText placeholder="Роман" value="#{studentBean.name}"
+                        <p:inputText placeholder="Роман" value="#{studentCreateBean.name}"
                                      style="margin-left: 12.2%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputText>
                         <br/><br/>
 
                         <p:outputLabel value="Фамилия: *"/>
-                        <p:inputText placeholder="Богатко" value="#{studentBean.surname}"
+                        <p:inputText placeholder="Богатко" value="#{studentCreateBean.surname}"
                                      style="margin-left: 8.6%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputText>
                         <br/><br/>
 
                         <p:outputLabel value="Отчество: *"/>
-                        <p:inputText placeholder="Игоревич" value="#{studentBean.secondName}"
+                        <p:inputText placeholder="Игоревич" value="#{studentCreateBean.secondName}"
                                      style="margin-left: 8.5%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputText>
                         <br/><br/>
 
                         <p:outputLabel value="Специальность: *"/>
-                        <p:selectOneMenu id="country" placeholder="ПОИБМС" value="#{studentBean.specialty}"
+                        <p:selectOneMenu id="country" placeholder="ПОИБМС" value="#{studentCreateBean.specialty}"
                                          style="width:217px; margin-left: 4%;">
                             <f:selectItem itemLabel="ИСиТ" itemValue="ИСиТ"/>
                             <f:selectItem itemLabel="ПОИТ" itemValue="ПОИТ" noSelectionOption="true"/>
@@ -100,23 +100,30 @@
                         <br/><br/>
 
                         <p:outputLabel value="Дата рождения: *"/>
-                        <p:inputMask id="date" value="#{studentBean.date}" placeholder="23.06.1998" mask="99.99.9999"
+                        <p:inputMask id="date" value="#{studentCreateBean.date}" placeholder="23.06.1998" mask="99.99.9999"
                                      style="margin-left: 4%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputMask>
                         <br/><br/>
 
                         <p:outputLabel value="Мобильный номер : *"/>
-                        <p:inputMask id="phoneNumber" value="#{studentBean.phoneNumber}"
+                        <p:inputMask id="phoneNumber" value="#{studentCreateBean.phoneNumber}"
                                      placeholder="+375 (44) 548-44-03"
                                      mask="+375 (99) 999-99-99" style="margin-left: 1%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputMask>
                         <br/><br/>
 
+                        <p:outputLabel value="Студ. билет: *"/>
+                        <p:inputText placeholder="71800157" value="#{studentCreateBean.ticketNumber}"
+                                     style="margin-left: 6.5%; width: 231px;">
+                            <p:ajax process="@this" partialSumbit="true"/>
+                        </p:inputText>
+                        <br/><br/>
+
                         <p:outputLabel value="Студент учиться: *"/>
                         <p:selectOneMenu immediate="true" id="Study" style="width:217px; margin-left: 3%;"
-                                         value="#{studentBean.study}"
+                                         value="#{studentCreateBean.study}"
                                          placeholder="Да">
                             <f:selectItem itemLabel="Да" itemValue="Да"/>
                             <f:selectItem itemLabel="Нет" itemValue="Нет"/>
@@ -124,16 +131,16 @@
                         <br/><br/>
 
                         <p:outputLabel value="Рейтинг: "/>
-                        <p:spinner placeholder="Рейтинг:" id="rating" value="#{studentBean.rating}" min="1" max="10"
+                        <p:spinner placeholder="Рейтинг:" id="rating" value="#{studentCreateBean.rating}" min="1" max="10"
                                    style="margin-left: 10%;"/>
                         <br/><br/>
                     </h:form>
                     <div>
                         <p:commandButton id="Back" value="Назад" styleClass="backAndAddB" process="@this FastMenu"
-                                         update="@this FastMenu" action="#{studentBean.back}"/>
+                                         update="@this FastMenu" action="#{studentCreateBean.back}"/>
                         <p:commandButton id="Addition" value="Добавить" styleClass="backAndAddB"
                                          process="@this FastMenu" update="@this FastMenu"
-                                         action="#{studentBean.add}"/>
+                                         action="#{studentCreateBean.add}"/>
                     </div>
                 </div>
             </p:panel>

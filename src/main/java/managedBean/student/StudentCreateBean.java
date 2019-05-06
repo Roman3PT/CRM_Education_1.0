@@ -15,13 +15,14 @@ import java.io.IOException;
 @Data
 @ManagedBean
 @RequestScoped
-public class StudentBean {
+public class StudentCreateBean {
 
     private String name;
     private String surname;
     private String secondName;
     private String specialty;
     private String date;
+    private String ticketNumber;
     private String phoneNumber;
     private boolean study;
     private Integer rating;
@@ -29,6 +30,10 @@ public class StudentBean {
 
     @PostConstruct
     public void init() {
+    }
+
+    public void add() {
+        goToMainPage();
     }
 
     public void back() {
@@ -39,11 +44,11 @@ public class StudentBean {
         }
     }
 
-    public void add() {
-
-    }
-
-    public void update() {
-
+    private void goToMainPage() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
