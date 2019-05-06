@@ -7,12 +7,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @Data
 @ManagedBean
 @RequestScoped
-public class CompanyUpdateBean {
+public class CompanyUpdateBean implements Serializable {
 
     private String name;
     private String region;

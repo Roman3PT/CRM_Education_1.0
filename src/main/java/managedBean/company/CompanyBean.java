@@ -7,12 +7,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @Data
 @ManagedBean
 @RequestScoped
-public class CompanyBean {
+public class CompanyBean implements Serializable {
 
     public void goToAdd() {
         try {
@@ -28,5 +29,13 @@ public class CompanyBean {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void search() {
+
+    }
+
+    public void remove() {
+
     }
 }

@@ -7,12 +7,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @Data
 @ManagedBean
 @RequestScoped
-public class CompanyCreateBean {
+public class CompanyCreateBean implements Serializable {
 
     private String name;
     private String region;
@@ -22,15 +23,7 @@ public class CompanyCreateBean {
     private String description;
 
     public void add() {
-        goToCompanyMainPage();
-    }
-
-    private void goToCompanyMainPage() {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("companyMainPage.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        back();
     }
 
     public void back() {

@@ -55,7 +55,7 @@
     <div>
         <div style="display: flex; margin-top: 4px;">
             <p:panel id="FastMenu"
-                     header="Добавление студента"
+                     header="Добавление данных о студенте"
                      footer="Белорусский Государственный Технологический Университет"
                      styleClass="centerAddMenu">
                 <div>
@@ -101,7 +101,8 @@
                         <br/><br/>
 
                         <p:outputLabel value="Дата рождения: *"/>
-                        <p:inputMask id="date" value="#{studentCreateBean.date}" placeholder="23.06.1998" mask="99.99.9999"
+                        <p:inputMask id="date" value="#{studentCreateBean.date}" placeholder="23.06.1998"
+                                     mask="99.99.9999"
                                      style="margin-left: 4%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputMask>
@@ -132,7 +133,8 @@
                         <br/><br/>
 
                         <p:outputLabel value="Рейтинг: "/>
-                        <p:spinner placeholder="Рейтинг:" id="rating" value="#{studentCreateBean.rating}" min="1" max="10"
+                        <p:spinner placeholder="Рейтинг:" id="rating" value="#{studentCreateBean.rating}" min="1"
+                                   max="10"
                                    style="margin-left: 10%;"/>
                         <br/><br/>
                     </h:form>

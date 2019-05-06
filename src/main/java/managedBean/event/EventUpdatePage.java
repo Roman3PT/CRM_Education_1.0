@@ -9,13 +9,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ManagedBean
 @SessionScoped
-public class EventUpdatePage {
+public class EventUpdatePage implements Serializable {
 
     private String eventType;
     private String student;

@@ -9,13 +9,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ManagedBean
 @RequestScoped
-public class StudentCreateBean {
+public class StudentCreateBean implements Serializable {
 
     private String name;
     private String surname;
@@ -33,18 +34,10 @@ public class StudentCreateBean {
     }
 
     public void add() {
-        goToMainPage();
+        back();
     }
 
     public void back() {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void goToMainPage() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
         } catch (IOException e) {

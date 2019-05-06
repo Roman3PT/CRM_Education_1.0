@@ -10,13 +10,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ManagedBean
 @RequestScoped
-public class StudentUpdateBean {
+public class StudentUpdateBean implements Serializable {
 
     private String name;
     private String surname;
@@ -34,18 +35,10 @@ public class StudentUpdateBean {
     }
 
     public void update() {
-        goToStudentMainPage();
+        back();
     }
 
     public void back() {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void goToStudentMainPage() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
         } catch (IOException e) {

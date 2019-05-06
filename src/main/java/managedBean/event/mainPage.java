@@ -12,13 +12,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ManagedBean
 @SessionScoped
-public class mainPage {
+public class mainPage implements Serializable {
 
     private TreeNode root;
     private TreeNode selectionNode;
@@ -52,12 +53,12 @@ public class mainPage {
         }
     }
 
-    public void exit() {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("authorizationPage.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void search() {
+
+    }
+
+    public void remove() {
+
     }
 
     public void goToAddEvent() {
@@ -70,7 +71,15 @@ public class mainPage {
 
     public void goToUpdateEvent() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("eventCreatePage.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("eventUpdatePage.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exit() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("authorizationPage.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

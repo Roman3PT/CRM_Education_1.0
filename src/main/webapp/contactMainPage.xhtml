@@ -59,16 +59,16 @@
                 <p:inputText styleClass="search_input" placeholder="Поиск"/>
                 <br/><br/>
 
-                <p:commandButton id="sarchItem" value="Поиск" styleClass="queryButton" process="@this"/>
+                <p:commandButton id="sarchItem" value="Поиск" styleClass="queryButton" process="@this"
+                                 action="#{contactMainPage.search}"/>
                 <br/><br/>
 
-                <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"/>
+                <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
+                                 action="#{contactMainPage.add}"/>
                 <br/><br/>
 
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this"/>
-                <br/><br/>
-
-                <p:commandButton id="asd" value="Удалить" styleClass="queryButton" process="@this"/>
+                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this"
+                                 action="#{contactMainPage.remove}"/>
                 <br/><br/>
             </p:panel>
             <p:dataTable id="Contact">
