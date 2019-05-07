@@ -3,10 +3,14 @@ package managedBean.student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.dao.StudentDAO;
+import model.entity.Student;
+import model.hibernateUtil.HibernateUtil;
+import model.service.SpecialtyDAOService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
@@ -15,26 +19,38 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class StudentCreateBean implements Serializable {
 
-    private long id;
     private String name;
     private String surname;
     private String secondName;
-    private String specialty;
     private String date;
-    private String ticketNumber;
-    private String phoneNumber;
     private boolean study;
+    private String phoneNumber;
+    private String specialtyName;
+    private String ticketNumber;
     private Integer rating;
     private String description;
+    private StudentDAO studentDAO;
+    private Student student;
 
     @PostConstruct
     public void init() {
+        studentDAO = new StudentDAO(HibernateUtil.getSessionFactory());
+        student = new Student();
     }
 
     public void add() {
+        student.setFullName(name + " " + surname + " " + secondName);
+        student.setSpecialty(new SpecialtyDAOService().getSpecialty(specialtyName));
+        student.setAdmissionYear(date);
+        student.setPhoneNumber(phoneNumber);
+        student.setTicketNumber(ticketNumber);
+        student.setExisting(study);
+        student.setRating(rating);
+        student.setDescription(description);
+        studentDAO.save(student);
         back();
     }
 

@@ -8,10 +8,8 @@
 
         <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
         <property name="hibernate.connection.url">
-            jdbc:sqlserver://localhost\BAHATKA\SQLEXPRESS:1433;database=CRM_System
+            jdbc:sqlserver://localhost\BAHATKA\SQLEXPRESS:1433;database=CRM_System;integratedSecurity=true
         </property>
-        <property name="hibernate.connection.username"/>
-        <property name="hibernate.connection.password"/>
         <property name="hibernate.connection.pool_size">30</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
@@ -20,7 +18,13 @@
             org.hibernate.context.internal.ThreadLocalSessionContext
         </property>
 
-        <!--        <mapping class="model.db.User"/>-->
+        <mapping class="model.entity.AbstractCRMEducation"/>
+        <mapping class="model.entity.Company"/>
+        <mapping class="model.entity.Contact"/>
+        <mapping class="model.entity.Event"/>
+        <mapping class="model.entity.EventType"/>
+        <mapping class="model.entity.Specialty"/>
+        <mapping class="model.entity.Student"/>
 
     </session-factory>
 </hibernate-configuration>

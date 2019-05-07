@@ -1,5 +1,6 @@
-package model;
+package model.hibernateUtil;
 
+import model.entity.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -13,17 +14,20 @@ public class HibernateUtil {
             // Create the SessionFactory from hibernate.cfg.xml
             Configuration configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");
-//            configuration.addAnnotatedClass(SpeedBy.class);
+            configuration.addAnnotatedClass(AbstractCRMEducation.class);
+            configuration.addAnnotatedClass(Company.class);
+            configuration.addAnnotatedClass(Contact.class);
+            configuration.addAnnotatedClass(Event.class);
+            configuration.addAnnotatedClass(EventType.class);
+            configuration.addAnnotatedClass(Specialty.class);
+            configuration.addAnnotatedClass(Student.class);
             System.out.println("Hibernate Configuration loaded");
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate serviceRegistry created");
 
-            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-
-            return sessionFactory;
-        }
-        catch (Throwable ex) {
+            return configuration.buildSessionFactory(serviceRegistry);
+        } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
@@ -31,7 +35,7 @@ public class HibernateUtil {
     }
 
     public static SessionFactory getSessionFactory() {
-        if(sessionFactory == null) sessionFactory = buildSessionFactory();
+        if (sessionFactory == null) sessionFactory = buildSessionFactory();
         return sessionFactory;
     }
 }

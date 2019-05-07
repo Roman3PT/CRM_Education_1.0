@@ -3,7 +3,9 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
 
 <h:head>
     <title>Меню студентов</title>
@@ -56,7 +58,10 @@
             <p:panel id="FastMenu" header="Главное меню"
                      footer="ООО 'СофтКлуб - Центр разработки' "
                      styleClass="leftMenu">
-                <p:inputText styleClass="search_input" placeholder="Поиск"/>
+                <p:inputText id="SDSearch" styleClass="search_input" value="#{studentMainPage.number}"
+                             placeholder="Поиск">
+                    <f:ajax execute="SDSearch" event="keyup"/>
+                </p:inputText>
                 <br/><br/>
 
                 <p:commandButton id="sarchItem" value="Поиск" styleClass="queryButton" process="@this"/>
@@ -66,41 +71,38 @@
                                  action="#{studentMainPage.goToAddStudent}"/>
                 <br/><br/>
 
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this"/>
+                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this SDSearch"
+                                 action="#{studentMainPage.remove}" update="@this SDSearch"/>
                 <br/><br/>
 
                 <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this"
                                  action="#{studentMainPage.goToUpdateStudent}"/>
                 <br/><br/>
             </p:panel>
-            <p:dataTable id="Event">
-                <p:column headerText="Номер">
-                    <h:outputText value="1"/>
+            <p:dataTable id="Event" var="student" value="#{studentMainPage.students}">
+                <p:column headerText="№" width="20" sortBy="#{student.id}">
+                    <h:outputText value="#{student.id}"/>
                 </p:column>
-                <p:column headerText="ФИО">
-                    <h:outputText value="Собеседование в компании SoftClub"/>
+                <p:column headerText="ФИО" sortBy="#{student.fullName}">
+                    <h:outputText value="#{student.fullName}"/>
                 </p:column>
-                <p:column headerText="Специальность">
-                    <h:outputText value="Богатко Роман Игоревич"/>
+                <p:column headerText="Специальность" width="150" sortBy="#{student.specialty.id}">
+                    <h:outputText value="#{student.specialty.name}"/>
                 </p:column>
-                <p:column headerText="Мобильный номер">
-                    <h:outputText value="+ 375 (44) 548-44-03"/>
+                <p:column headerText="Мобильный номер" sortBy="#{student.phoneNumber}">
+                    <h:outputText value="#{student.phoneNumber}"/>
                 </p:column>
-                <p:column headerText="Студенческий билет">
-                    <h:outputText value="7180057"/>
+                <p:column headerText="Студенческий билет" width="150" sortBy="#{student.ticketNumber}">
+                    <h:outputText value="#{student.ticketNumber}"/>
                 </p:column>
-                <p:column headerText="Вуз">
-                    <h:outputText value="Студент"/>
+                <p:column headerText="Год поступления" width="150" sortBy="#{student.admissionYear}">
+                    <h:outputText value="#{student.admissionYear}"/>
                 </p:column>
-                <p:column headerText="Год поступления">
-                    <h:outputText value="23.06.2015"/>
-                </p:column>
-                <p:column headerText="Рейтинг">
-                    <h:outputText value="7"/>
+                <p:column headerText="Рейтинг" width="70" sortBy="#{student.rating}">
+                    <h:outputText value="#{student.rating}"/>
                 </p:column>
                 <p:column headerText="Описание">
-                    <h:outputText value="Данный студент успешно прошел собеседование. Попал на 3 месячную стажировку, окончил ее хорошо.
-                     На данный момент работает в этой компании техником-программистом"/>
+                    <h:outputText value="#{student.description}"/>
                 </p:column>
             </p:dataTable>
         </div>
