@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "EVENT")
 @Table(name = "EVENT")
 public class Event extends AbstractCRMEducation implements Serializable {
 

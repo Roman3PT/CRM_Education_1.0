@@ -3,12 +3,12 @@ package managedBean.student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import model.dao.StudentDAO;
 import model.entity.Student;
-import model.hibernateUtil.HibernateUtil;
 import model.service.SpecialtyDAOService;
+import model.service.StudentDAOService;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -32,12 +32,13 @@ public class StudentCreateBean implements Serializable {
     private String ticketNumber;
     private Integer rating;
     private String description;
-    private StudentDAO studentDAO;
+    private StudentDAOService studentDAOService;
     private Student student;
 
     @PostConstruct
     public void init() {
-        studentDAO = new StudentDAO(HibernateUtil.getSessionFactory());
+        specialtyName = "ИСиТ";
+        studentDAOService = new StudentDAOService();
         student = new Student();
     }
 
@@ -50,7 +51,7 @@ public class StudentCreateBean implements Serializable {
         student.setExisting(study);
         student.setRating(rating);
         student.setDescription(description);
-        studentDAO.save(student);
+        studentDAOService.save(student);
         back();
     }
 
@@ -60,5 +61,10 @@ public class StudentCreateBean implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        studentDAOService.close();
     }
 }

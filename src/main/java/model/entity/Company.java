@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "COMPANY")
 @Table(name = "COMPANY")
 public class Company extends AbstractCRMEducation implements Serializable {
 
@@ -29,7 +29,7 @@ public class Company extends AbstractCRMEducation implements Serializable {
     private String address;
 
     @Column(name = "isBool")
-    private boolean study;
+    private boolean isBool;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "company")
     private Set<Event> events;

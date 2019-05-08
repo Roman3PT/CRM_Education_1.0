@@ -129,14 +129,10 @@
                         <br/><br/>
 
                         <p:outputLabel value="Студент учиться: *"/>
-                        <p:selectOneMenu id="study"
-                                         style="width:217px; margin-left: 3%;"
-                                         value="#{studentCreateBean.study}"
-                                         placeholder="Да">
-                            <f:selectItem itemLabel="Да" itemValue="#{true}"/>
-                            <f:selectItem itemLabel="Нет" itemValue="#{false}"/>
+                        <p:selectBooleanCheckbox id="study" value="#{studentCreateBean.study}"
+                                                 style="margin-left: 3%;">
                             <f:ajax process="@this study" update="@this study"/>
-                        </p:selectOneMenu>
+                        </p:selectBooleanCheckbox>
                         <br/><br/>
 
                         <p:outputLabel value="Рейтинг: "/>

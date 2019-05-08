@@ -4,7 +4,7 @@
 
 <html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+>
 
 <h:head>
     <title>Меню Компаний</title>
@@ -20,9 +20,8 @@
             <p:outputLabel value="МЕНЮ КОМПАНИЙ" styleClass="qwerty"/>
             <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
                              style="margin-left: 35%"/>
-            <p:growl id="growl" showDetail="true" sticky="true"/>
             <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
-                             update="@this growl"
+                             update="@this"
                              styleClass="exitButton">
             </p:commandButton>
         </div>
@@ -57,38 +56,41 @@
             <p:panel id="FastMenu" header="Главное меню"
                      footer="ООО 'СофтКлуб - Центр разработки' "
                      styleClass="leftMenu">
-                <p:inputText styleClass="search_input" placeholder="Поиск"/>
-                <br/><br/>
-
-                <p:commandButton id="sarchItem" value="Поиск" styleClass="queryButton" process="@this"
-                                 action="#{companyBean.search}"/>
-                <br/><br/>
+                <p:growl id="growl" showDetail="true" sticky="true">
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:inputText id="SDSearch" styleClass="search_input" value="#{companyBean.number}"
+                             placeholder="Номер"/>
+                <p:message for="SDSearch"/>
+                <br/><br/><br/>
 
                 <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
                                  action="#{companyBean.goToAdd}"/>
                 <br/><br/>
 
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this"
+                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this SDSearch"
+                                 update="@this SDSearch" partialSubmit="true"
                                  action="#{companyBean.remove}"/>
                 <br/><br/>
 
-                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this"
+                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this SDSearch"
+                                 update="@this SDSearch" partialSubmit="true"
                                  action="#{companyBean.goToUpdate}"/>
-                <br/><br/>
+                <br/><br/><br/>
             </p:panel>
-            <p:dataTable id="Company">
-                <p:column headerText="Номер">
-                    <h:outputText value="1"/>
+            <p:dataTable id="Company" var="company" value="#{companyBean.companies}" scrollable="true"
+                         scrollHeight="810">
+                <p:column headerText="Номер" sortBy="#{company.id}">
+                    <h:outputText value="#{company.id}"/>
                 </p:column>
-                <p:column headerText="Название">
-                    <h:outputText value="СофтКлуб"/>
+                <p:column headerText="Название" sortBy="#{company.name}">
+                    <h:outputText value="#{company.name}"/>
                 </p:column>
                 <p:column headerText="Адрес">
-                    <h:outputText value="Собеседование в компании SoftClub"/>
+                    <h:outputText value="#{company.address}"/>
                 </p:column>
                 <p:column headerText="Описание">
-                    <h:outputText value="Данный студент успешно прошел собеседование. Попал на 3 месячную стажировку, окончил ее хорошо.
-                     На данный момент работает в этой компании техником-программистом"/>
+                    <h:outputText value="#{company.description}"/>
                 </p:column>
             </p:dataTable>
         </div>

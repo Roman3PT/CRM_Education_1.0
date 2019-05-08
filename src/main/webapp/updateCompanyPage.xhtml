@@ -7,7 +7,7 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-    <title>Создание студента</title>
+    <title>Редактирование компании</title>
     <h:outputStylesheet name="bodyStyle.css" library="css"/>
     <h:outputStylesheet name="mainPage.css" library="css"/>
     <h:outputStylesheet name="CreateStudent.css" library="css"/>
@@ -59,27 +59,29 @@
                      footer="Белорусский Государственный Технологический Университет"
                      styleClass="centerAddMenu">
                 <div>
-                    <h:form style="margin-left: 5%; ">
+                    <h:form id="updateCompany" style="margin-left: 5%; ">
                         <br/><br/>
 
                         <p:outputLabel value="Описание: *" styleClass="description"/>
-                        <p:inputTextarea maxlength="256" scrollHeight="400" value="#{companyCreateBean.description}"
+                        <p:inputTextarea id="description" maxlength="256" scrollHeight="400"
+                                         value="#{companyUpdateBean.company.description}"
                                          style="position: absolute;
                                                 margin-left: 28%;
                                                 margin-top: 2%;
                                                 width: 34%;">
-                            <p:ajax process="@this" partialSumbit="true"/>
+                            <f:ajax process="@this description" update="@this description"/>
                         </p:inputTextarea>
 
                         <p:outputLabel value="Название: *"/>
-                        <p:inputText id="nameCompany" placeholder="ООО СофтКлуб" value="#{companyCreateBean.name}"
+                        <p:inputText id="nameCompany" placeholder="ООО СофтКлуб"
+                                     value="#{companyUpdateBean.company.name}"
                                      style="margin-left: 6%; width: 231px;">
-                            <p:ajax process="@this" partialSumbit="true"/>
+                            <f:ajax process="@this nameCompany" update="@this nameCompany"/>
                         </p:inputText>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Область: *"/>
-                        <p:selectOneMenu id="region" placeholder="Бресткая обл." value="#{companyCreateBean.region}"
+                        <p:selectOneMenu id="region" placeholder="Бресткая обл." value="#{companyUpdateBean.region}"
                                          style="width:217px; margin-left: 6.8%;">
                             <f:selectItem itemLabel="Бресткая" itemValue="Бресткая"/>
                             <f:selectItem itemLabel="Гродненская" itemValue="Гродненская" noSelectionOption="true"/>
@@ -87,37 +89,45 @@
                             <f:selectItem itemLabel="Минская" itemValue="Минская" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Могилёвская" itemValue="Могилёвская" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Гомельская" itemValue="Гомельская" noSelectionOption="true"/>
+                            <f:ajax process="@this region" update="@this region"/>
                         </p:selectOneMenu>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Город: *"/>
-                        <p:inputText id="city" placeholder="г. Минск" value="#{companyCreateBean.city}"
+                        <p:inputText id="city" placeholder="г. Минск" value="#{companyUpdateBean.city}"
                                      style="margin-left: 8.7%; width: 231px;">
-                            <p:ajax process="@this" partialSumbit="true"/>
+                            <f:ajax process="@this city" update="@this city"/>
                         </p:inputText>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Улица: *"/>
-                        <p:inputText id="street" placeholder="ул. Пинская" value="#{companyCreateBean.street}"
+                        <p:inputText id="street" placeholder="ул. Пинская" value="#{companyUpdateBean.street}"
                                      style="margin-left: 8.6%; width: 231px;">
-                            <p:ajax process="@this" partialSumbit="true"/>
+                            <f:ajax process="@this street" update="@this street"/>
                         </p:inputText>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Номер дома: *"/>
-                        <p:inputText id="numberHouse" value="#{companyCreateBean.numberHouse}"
+                        <p:inputText id="numberHouse" value="#{companyUpdateBean.numberHouse}"
                                      style="margin-left: 4%; width: 231px;">
-                            <p:ajax process="@this" partialSumbit="true"/>
+                            <f:ajax process="@this numberHouse" update="@this numberHouse"/>
                         </p:inputText>
+                        <br/><br/><br/>
+
+                        <p:outputLabel value="Доступ: *"/>
+                        <p:selectBooleanCheckbox id="study" value="#{companyUpdateBean.company.bool}"
+                                                 style="margin-left: 8%;">
+                            <f:ajax process="@this study" update="@this study"/>
+                        </p:selectBooleanCheckbox>
                         <br/><br/><br/>
                     </h:form>
                     <div>
                         <p:commandButton id="Back" value="Назад" styleClass="backAndAddB" process="@this FastMenu"
                                          update="@this FastMenu" action="#{companyUpdateBean.back}"/>
                         <p:commandButton id="Addition" value="Изменить" styleClass="backAndAddB"
-                                         process="@this FastMenu" update="@this FastMenu"
+                                         process="@this updateCompany" update="@this updateCompany" partialSubmit="true"
                                          action="#{companyUpdateBean.update}"/>
-                        <br/><br/><br/>
+                        <br/><br/>
                     </div>
                 </div>
             </p:panel>

@@ -4,10 +4,10 @@
 
 <html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+>
 
 <h:head>
-    <title>Авторизация</title>
+    <title>Меню Событий</title>
     <h:outputStylesheet name="bodyStyle.css" library="css"/>
     <h:outputStylesheet name="mainPage.css" library="css"/>
     <link rel="shortcut icon" href="resources/image/CRM_Education_icon.png" type="image/png"/>
@@ -20,9 +20,8 @@
             <p:outputLabel value="МЕНЮ СОБЫТИЙ" styleClass="qwerty"/>
             <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
                              style="margin-left: 35%"/>
-            <p:growl id="growl" showDetail="true" sticky="true"/>
             <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
-                             update="@this growl"
+                             update="@this"
                              styleClass="exitButton">
             </p:commandButton>
         </div>
@@ -57,44 +56,44 @@
             <p:panel id="FastMenu" header="Главное меню"
                      footer="ООО 'СофтКлуб - Центр разработки' "
                      styleClass="leftMenu">
-                <p:inputText styleClass="search_input" placeholder="Поиск"/>
-                <br/><br/>
-
-                <p:commandButton id="sarchItem" value="Поиск" styleClass="queryButton" process="@this"
-                                 action="#{mainPage.search}"/>
-                <br/><br/>
+                <p:growl id="growl" showDetail="true" sticky="true">
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:inputText id="SDSearch" styleClass="search_input" value="#{mainPage.number}"
+                             placeholder="Номер"/>
+                <p:message for="SDSearch"/>
+                <br/><br/><br/>
 
                 <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
                                  action="#{mainPage.goToAddEvent}"/>
                 <br/><br/>
 
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this"
+                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this SDSearch"
+                                 update="@this SDSearch"
+                                 partialSubmit="true"
                                  action="#{mainPage.remove}"/>
                 <br/><br/>
 
-                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this"
+                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this SDSearch"
+                                 partialSubmit="true"
                                  action="#{mainPage.goToUpdateEvent}"/>
-                <br/><br/>
+                <br/><br/><br/>
             </p:panel>
-            <p:dataTable id="Event" scrollable="true" scrollHeight="1000">
-                <p:column headerText="Номер">
-                    <h:outputText value="1"/>
+            <p:dataTable id="Event" var="event" value="#{mainPage.events}" scrollable="true" scrollHeight="810">
+                <p:column headerText="Номер" sortBy="#{event.id}">
+                    <h:outputText value="#{event.id}"/>
                 </p:column>
-                <p:column headerText="Тип">
-                    <h:outputText value="Собеседование"/>
+                <p:column headerText="Тип" sortBy="#{event.type.name}">
+                    <h:outputText value="#{event.type.name}"/>
                 </p:column>
-                <p:column headerText="Событие">
-                    <h:outputText value="Собеседование в компании SoftClub"/>
+                <p:column headerText="Студент" sortBy="#{event.student.fullName}">
+                    <h:outputText value="#{event.student.fullName}"/>
                 </p:column>
-                <p:column headerText="Студент">
-                    <h:outputText value="Богатко Роман Игоревич"/>
-                </p:column>
-                <p:column headerText="Компания">
-                    <h:outputText value="ООО SoftClub"/>
+                <p:column headerText="Компания" sortBy="#{event.company.name}">
+                    <h:outputText value="#{event.company.name}"/>
                 </p:column>
                 <p:column headerText="Описание">
-                    <h:outputText value="Данный студент успешно прошел собеседование. Попал на 3 месячную стажировку, окончил ее хорошо.
-                     На данный момент работает в этой компании техником-программистом"/>
+                    <h:outputText value="#{event.description}"/>
                 </p:column>
             </p:dataTable>
         </div>

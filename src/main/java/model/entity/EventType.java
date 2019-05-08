@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
+@Entity(name = "TYPE_EVENT")
 @Table(name = "TYPE_EVENT")
 public class EventType extends AbstractCRMEducation implements Serializable {
 
