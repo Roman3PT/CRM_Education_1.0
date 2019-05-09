@@ -20,9 +20,8 @@
             <p:outputLabel value="МЕНЮ СОБЫТИЙ" styleClass="qwerty"/>
             <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
                              style="margin-left: 35%"/>
-            <p:growl id="growl" showDetail="true" sticky="true"/>
             <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
-                             update="@this growl"
+                             update="@this"
                              styleClass="exitButton">
             </p:commandButton>
         </div>
@@ -59,49 +58,55 @@
                      footer="Белорусский Государственный Технологический Университет"
                      styleClass="centerAddMenu">
                 <div>
-                    <h:form style="margin-left: 5%; ">
+                    <h:form id="updateEvent" style="margin-left: 5%; ">
                         <br/><br/>
 
                         <p:outputLabel value="Описание: *" styleClass="description"/>
-                        <p:inputTextarea maxlength="256" scrollHeight="400" value="#{eventUpdatePage.description}"
+                        <p:inputTextarea id="description" maxlength="256" scrollHeight="400"
+                                         value="#{eventUpdatePage.description}"
                                          style="position: absolute;
                                                 margin-left: 24%;
                                                 margin-top: 2%;
                                                 width: 34%;">
-                            <p:ajax process="@this" partialSumbit="true"/>
+                            <p:ajax process="@this description" update="@this description" partialSumbit="true"/>
                         </p:inputTextarea>
 
                         <p:outputLabel value="Тип: *"/>
-                        <p:selectOneMenu id="region" placeholder="Бресткая обл." value="#{eventCreatePage.eventType}"
+                        <p:selectOneMenu id="region" placeholder="Бресткая обл."
+                                         value="#{eventUpdatePage.eventTypeName}"
                                          style="width:217px; margin-left: 7.3%;">
                             <f:selectItem itemLabel="Практика" itemValue="Практика"/>
                             <f:selectItem itemLabel="Собеседование" itemValue="Собеседование" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Курсы" itemValue="Курсы" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Стажировка" itemValue="Стажировка" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Работа" itemValue="Работа" noSelectionOption="true"/>
+                            <p:ajax process="@this region" update="@this region" partialSumbit="true"/>
                         </p:selectOneMenu>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Студ. билет: *"/>
-                        <p:inputText id="ticketNumber" placeholder="71800157" value="#{eventCreatePage.student}"
+                        <p:inputText id="ticketNumber" placeholder="71800157" value="#{eventUpdatePage.ticketNumber}"
                                      style="margin-left: 1%; width: 231px;">
-                            <p:ajax process="@this" partialSumbit="true"/>
+                            <p:ajax process="@this ticketNumber" update="@this ticketNumber" partialSumbit="true"/>
                         </p:inputText>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Компания: *"/>
-                        <p:inputText id="street" placeholder="ООО СофтКлуб" value="#{eventCreatePage.company}"
-                                     style="margin-left: 2.3%; width: 231px;">
-                            <p:ajax process="@this" partialSumbit="true"/>
-                        </p:inputText>
+                        <p:selectOneMenu id="company" placeholder="Бресткая обл."
+                                         style="width:217px; margin-left: 2.2%;" value="#{eventUpdatePage.companyName}">
+                            <f:selectItems var="company"
+                                           value="#{eventUpdatePage.companies}" itemLabel="#{company.name}"
+                                           itemValue="#{company.name}"/>
+                            <p:ajax process="@this company" update="@this company" partialSumbit="true"/>
+                        </p:selectOneMenu>
                         <br/><br/><br/>
                     </h:form>
                     <div>
                         <p:commandButton id="Back" value="Назад" styleClass="backAndAddB" process="@this FastMenu"
                                          update="@this FastMenu" action="#{eventUpdatePage.back}"/>
                         <p:commandButton id="Addition" value="Изменить" styleClass="backAndAddB"
-                                         process="@this FastMenu" update="@this FastMenu"
-                                         action="#{eventUpdatePage.add}"/>
+                                         process="@this updateEvent" update="@this updateEvent" partialSubmit="true"
+                                         action="#{eventUpdatePage.update}"/>
                         <br/><br/><br/>
                     </div>
                 </div>

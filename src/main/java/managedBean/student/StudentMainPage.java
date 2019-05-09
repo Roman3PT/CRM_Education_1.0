@@ -58,7 +58,7 @@ public class StudentMainPage implements Serializable {
     }
 
     public void remove() {
-        if (number == null || number == 0) {
+        if (number < 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
         } else {
             studentDAOService.remove(number);

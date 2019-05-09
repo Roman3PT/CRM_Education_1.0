@@ -10,6 +10,7 @@ import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -29,6 +30,7 @@ public class mainPage implements Serializable {
     private TreeNode selectionNode;
     private List<Event> events;
     private Long number;
+    private EventDAOService eventDAOService;
 
     @PostConstruct
     public void init() {
@@ -43,7 +45,8 @@ public class mainPage implements Serializable {
         root4.getChildren().add(new DefaultTreeNode("Список контактов"));
 
         events = new ArrayList<>();
-        events.addAll(new EventDAOService().getEvents());
+        eventDAOService = new EventDAOService();
+        events.addAll(eventDAOService.getEvents());
     }
 
     public void goToPage() {
@@ -62,7 +65,7 @@ public class mainPage implements Serializable {
     }
 
     public void remove() {
-        new EventDAOService().deleteEvent(number);
+        eventDAOService.deleteEvent(number);
         goToMainPageEvent();
     }
 
@@ -75,6 +78,7 @@ public class mainPage implements Serializable {
     }
 
     public void goToUpdateEvent() {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("eventUpdatePage.xhtml");
         } catch (IOException e) {
@@ -96,5 +100,11 @@ public class mainPage implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        events = null;
+        eventDAOService.close();
     }
 }

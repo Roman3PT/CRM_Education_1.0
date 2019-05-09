@@ -24,4 +24,7 @@ public class Contact extends AbstractCRMEducation implements Serializable {
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Company company;
+
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
 }

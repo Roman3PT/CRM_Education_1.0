@@ -18,6 +18,10 @@ public class EventDAOService {
         eventDAO.save(event);
     }
 
+    public void update(Event event) {
+        eventDAO.update(event);
+    }
+
     public void close() {
         eventDAO.close();
     }
@@ -29,5 +33,9 @@ public class EventDAOService {
     public void deleteEvent(Long id) {
         Event event = eventDAO.get(Event.class, id);
         eventDAO.delete(event);
+    }
+
+    public Event getEvent(Long id) {
+        return eventDAO.get(Event.class, id);
     }
 }
