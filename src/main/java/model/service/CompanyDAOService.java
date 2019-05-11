@@ -5,6 +5,7 @@ import model.entity.Company;
 import model.hibernateUtil.HibernateUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CompanyDAOService {
 
@@ -22,9 +23,12 @@ public class CompanyDAOService {
         return companyDAO.createQuery("FROM COMPANY", Company.class).list();
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         Company company = companyDAO.get(Company.class, id);
-        companyDAO.delete(company);
+        boolean rc = !Objects.isNull(company);
+        if (rc)
+            companyDAO.delete(company);
+        return rc;
     }
 
     public Company getCompany(Long id) {

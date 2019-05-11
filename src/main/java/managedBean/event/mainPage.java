@@ -11,6 +11,7 @@ import org.primefaces.model.TreeNode;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -65,8 +67,14 @@ public class mainPage implements Serializable {
     }
 
     public void remove() {
-        eventDAOService.deleteEvent(number);
-        goToMainPageEvent();
+        if (Objects.isNull(number))
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
+        else {
+            if (!eventDAOService.deleteEvent(number)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующий номер события"));
+            } else
+                goToMainPageEvent();
+        }
     }
 
     public void goToAddEvent() {
@@ -78,11 +86,19 @@ public class mainPage implements Serializable {
     }
 
     public void goToUpdateEvent() {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("eventUpdatePage.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (Objects.isNull(number))
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
+        else {
+            if (Objects.isNull(eventDAOService.getEvent(number)))
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующий номер события"));
+            else {
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("eventUpdatePage.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

@@ -40,6 +40,7 @@ public class EventCreatePage implements Serializable {
 
     @PostConstruct
     public void init() {
+        eventTypeName = "Практика";
         companyDAOService = new CompanyDAOService();
         eventDAOService = new EventDAOService();
         companies = new ArrayList<>();

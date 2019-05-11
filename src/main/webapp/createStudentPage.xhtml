@@ -60,9 +60,11 @@
                 <div>
                     <h:form id="addStudent" style="margin-left: 5%; ">
                         <br/>
-                        <p:growl id="growl" sticky="true">
+
+                        <p:growl binding="#{studentCreateBean.growl}" id="growl" sticky="true" life="3000">
                             <p:autoUpdate/>
                         </p:growl>
+
                         <p:outputLabel value="Описание: *" styleClass="description"/>
                         <p:inputTextarea id="description" maxlength="256"
                                          value="#{studentCreateBean.description}"
@@ -122,7 +124,7 @@
                                      requiredMessage="Неверная дата поступления"
                                      placeholder="23.06.1998"
                                      mask="99.99.9999"
-                                     style="margin-left: 4%; width: 231px;">
+                                     style="margin-left: 2%; width: 231px;">
                             <f:ajax process="@this date" update="@this date"/>
                             <f:convertDateTime pattern="dd.MM.yyyy" for="date"/>
                         </p:inputMask>

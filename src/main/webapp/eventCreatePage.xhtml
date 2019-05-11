@@ -61,6 +61,10 @@
                     <h:form id="createEvent" style="margin-left: 5%; ">
                         <br/><br/>
 
+                        <p:growl id="growl" sticky="true" life="3000">
+                            <p:autoUpdate/>
+                        </p:growl>
+
                         <p:outputLabel value="Описание: *" styleClass="description"/>
                         <p:inputTextarea maxlength="256" scrollHeight="400" value="#{eventCreatePage.description}"
                                          style="position: absolute;
@@ -77,12 +81,15 @@
                             <f:selectItem itemLabel="Курсы" itemValue="Курсы" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Стажировка" itemValue="Стажировка" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Работа" itemValue="Работа" noSelectionOption="true"/>
+                            <f:validateRequired/>
                         </p:selectOneMenu>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Студ. билет: *"/>
                         <p:inputText id="ticketNumber" placeholder="71800157" value="#{eventCreatePage.ticketNumber}"
+                                     validatorMessage="Длина 8 цифр"
                                      style="margin-left: 1%; width: 231px;">
+                            <f:validateRequired/>
                         </p:inputText>
                         <br/><br/><br/>
 

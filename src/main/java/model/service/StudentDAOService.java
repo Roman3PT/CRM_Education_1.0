@@ -5,6 +5,7 @@ import model.entity.Student;
 import model.hibernateUtil.HibernateUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 public final class StudentDAOService {
 
@@ -18,9 +19,12 @@ public final class StudentDAOService {
         return studentDAO.createQuery("FROM STUDENT", Student.class).list();
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         Student student = studentDAO.get(Student.class, id);
-        studentDAO.delete(student);
+        boolean rc = !Objects.isNull(student);
+        if (rc)
+            studentDAO.delete(student);
+        return rc;
     }
 
     public void save(Student student) {
@@ -32,7 +36,7 @@ public final class StudentDAOService {
     }
 
     public Student getStudent(String ticketNumber) {
-        return (Student) studentDAO.createQuery("SELECT u FROM STUDENT u WHERE u.ticketNumber = :ticketNumberName", Student.class)
+        return studentDAO.createQuery("SELECT u FROM STUDENT u WHERE u.ticketNumber = :ticketNumberName", Student.class)
                 .setParameter("ticketNumberName", ticketNumber).list().get(0);
     }
 

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,27 +46,34 @@ public class StudentMainPage implements Serializable {
     }
 
     public void goToUpdateStudent() {
-        if (number < 0) {
+        if (Objects.isNull(number))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
-        } else {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("updateStudentPage.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
+        else {
+            if (Objects.isNull(studentDAOService.getStudent(number)))
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующего студента"));
+            else {
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("updateStudentPage.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public void remove() {
-        if (number < 0) {
+        if (Objects.isNull(number))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
-        } else {
-            studentDAOService.remove(number);
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
+        else {
+            if (!studentDAOService.remove(number))
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующего студента"));
+            else {
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -20,9 +20,8 @@
             <p:outputLabel value="МЕНЮ СТУДЕНТОВ" styleClass="qwertyStudent"/>
             <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
                              style="margin-left: 35%"/>
-            <p:growl id="growl" showDetail="true" sticky="true"/>
             <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
-                             update="@this growl"
+                             update="@this"
                              styleClass="exitButton">
             </p:commandButton>
         </div>
@@ -60,6 +59,11 @@
                      styleClass="centerAddMenu">
                 <div>
                     <h:form style="margin-left: 5%; ">
+
+                        <p:growl id="growl" sticky="true" life="3000">
+                            <p:autoUpdate/>
+                        </p:growl>
+
                         <br/>
                         <p:outputLabel value="Описание: *" styleClass="description"/>
                         <p:inputTextarea maxlength="256" value="#{studentUpdateBean.student.description}"
@@ -72,22 +76,31 @@
 
                         <p:outputLabel value="Имя: *"/>
                         <p:inputText placeholder="Роман" value="#{studentUpdateBean.name}"
+                                     requiredMessage="Неверное Имя"
+                                     validatorMessage="Длина от 5 до 15"
                                      style="margin-left: 12.2%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
+                            <f:validateLength minimum="5" maximum="15"/>
                         </p:inputText>
                         <br/><br/>
 
                         <p:outputLabel value="Фамилия: *"/>
                         <p:inputText placeholder="Богатко" value="#{studentUpdateBean.surname}"
+                                     requiredMessage="Неверная Фамилия"
+                                     validatorMessage="Длина от 5 до 15"
                                      style="margin-left: 8.6%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
+                            <f:validateLength minimum="5" maximum="15"/>
                         </p:inputText>
                         <br/><br/>
 
                         <p:outputLabel value="Отчество: *"/>
                         <p:inputText placeholder="Игоревич" value="#{studentUpdateBean.secondName}"
+                                     requiredMessage="Неверное Отчество"
+                                     validatorMessage="Длина от 5 до 15"
                                      style="margin-left: 8.5%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
+                            <f:validateLength minimum="5" maximum="15"/>
                         </p:inputText>
                         <br/><br/>
 
@@ -102,28 +115,36 @@
                         </p:selectOneMenu>
                         <br/><br/>
 
-                        <p:outputLabel value="Дата рождения: *"/>
+                        <p:outputLabel value="Дата поступления: *"/>
                         <p:inputMask id="date" value="#{studentUpdateBean.student.admissionYear}"
                                      placeholder="23.06.1998"
                                      mask="99.99.9999"
-                                     style="margin-left: 4%; width: 231px;">
+                                     required="true"
+                                     requiredMessage="Неверная дата поступления"
+                                     style="margin-left: 2%; width: 231px;">
+                            <p:ajax process="@this" partialSumbit="true"/>
+                            <f:convertDateTime pattern="dd.MM.yyyy" for="date"/>
+                        </p:inputMask>
+                        <br/><br/>
+
+                        <p:outputLabel value="Мобильный номер : *"/>
+                        <p:inputMask id="phoneNumber" value="#{studentUpdateBean.student.phoneNumber}"
+                                     placeholder="+375 (44) 548-44-03"
+                                     required="true"
+                                     requiredMessage="Неверный мобильный"
+                                     mask="+375 (99) 999-99-99" style="margin-left: 1%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputMask>
                         <br/><br/>
 
                         <p:outputLabel value="Студ. билет: *"/>
                         <p:inputText placeholder="71800157" value="#{studentUpdateBean.student.ticketNumber}"
+                                     required="true"
+                                     requiredMessage="Неверный номер"
+                                     validatorMessage="Длина 8 цифр"
                                      style="margin-left: 6.5%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
                         </p:inputText>
-                        <br/><br/>
-
-                        <p:outputLabel value="Мобильный номер : *"/>
-                        <p:inputMask id="phoneNumber" value="#{studentUpdateBean.student.phoneNumber}"
-                                     placeholder="+375 (44) 548-44-03"
-                                     mask="+375 (99) 999-99-99" style="margin-left: 1%; width: 231px;">
-                            <p:ajax process="@this" partialSumbit="true"/>
-                        </p:inputMask>
                         <br/><br/>
 
                         <p:outputLabel value="Студент учиться: *"/>

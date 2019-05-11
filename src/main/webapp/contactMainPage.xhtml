@@ -56,9 +56,11 @@
             <p:panel id="FastMenu" header="Главное меню"
                      footer="ООО 'СофтКлуб - Центр разработки' "
                      styleClass="leftMenu">
+
                 <p:growl id="growl" showDetail="true" sticky="true">
                     <p:autoUpdate/>
                 </p:growl>
+
                 <p:inputText id="SDSearch" styleClass="search_input" value="#{contactMainPage.number}"
                              placeholder="Номер">
                     <p:ajax process="@this SDSearch" update="@this SDSearch" partialSubmit="true"/>
@@ -75,7 +77,8 @@
                                  action="#{contactMainPage.remove}"/>
                 <br/><br/>
 
-                <p:commandButton id="updateItem" value="Редактировать" styleClass="queryButton" process="@this"
+                <p:commandButton id="updateItem" value="Редактировать" styleClass="queryButton" process="@this FastMenu"
+                                 update="@this FastMenu" partialSubmit="true"
                                  action="#{contactMainPage.update}"/>
                 <br/><br/><br/>
             </p:panel>

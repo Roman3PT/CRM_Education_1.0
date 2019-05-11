@@ -5,6 +5,7 @@ import model.entity.Event;
 import model.hibernateUtil.HibernateUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EventDAOService {
 
@@ -30,9 +31,12 @@ public class EventDAOService {
         return eventDAO.createQuery("FROM EVENT", Event.class).list();
     }
 
-    public void deleteEvent(Long id) {
+    public boolean deleteEvent(Long id) {
         Event event = eventDAO.get(Event.class, id);
-        eventDAO.delete(event);
+        boolean rc = !Objects.isNull(event);
+        if (rc)
+            eventDAO.delete(event);
+        return rc;
     }
 
     public Event getEvent(Long id) {

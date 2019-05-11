@@ -20,9 +20,8 @@
             <p:outputLabel value="МЕНЮ КОМПАНИЙ" styleClass="qwerty"/>
             <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
                              style="margin-left: 35%"/>
-            <p:growl id="growl" showDetail="true" sticky="true"/>
             <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
-                             update="@this growl"
+                             update="@this"
                              styleClass="exitButton">
             </p:commandButton>
         </div>
@@ -37,7 +36,7 @@
     <p:sidebar id="TreeItems" widgetVar="sidebar1" baseZIndex="10000">
         <h1 style="font-weight:normal">Меню</h1>
         <h:form>
-            <p:inputText styleClass="search_input" placeholder="Поиск"/>
+            <p:inputText id="search_input" styleClass="search_input" placeholder="Поиск"/>
             <br/><br/>
             <p:tree id="TreeSet" value="#{mainPage.root}" var="node" selectionMode="single"
                     selection="#{mainPage.selectionNode}" process="@this"
@@ -61,6 +60,10 @@
                 <div>
                     <h:form id="createCompany" style="margin-left: 5%; ">
                         <br/><br/>
+                        <p:growl id="growl" sticky="true" life="3000">
+                            <p:autoUpdate/>
+                        </p:growl>
+
                         <p:outputLabel value="Описание: *" styleClass="description"/>
                         <p:inputTextarea id="description" maxlength="256" scrollHeight="400"
                                          value="#{companyCreateBean.description}"
@@ -68,13 +71,14 @@
                                                 margin-left: 28%;
                                                 margin-top: 2%;
                                                 width: 34%;">
-                            <f:ajax process="@this description" update="@this description"/>
                         </p:inputTextarea>
 
                         <p:outputLabel value="Название: *"/>
-                        <p:inputText id="nameCompany" placeholder="ООО СофтКлуб" value="#{companyCreateBean.name}"
+                        <p:inputText id="nameCompany" placeholder="ООО СофтКлуб"
+                                     value="#{companyCreateBean.name}"
+                                     requiredMessage="Неверное название"
                                      style="margin-left: 6%; width: 231px;">
-                            <f:ajax process="@this nameCompany" update="@this nameCompany"/>
+                            <f:validateRequired/>
                         </p:inputText>
                         <br/><br/><br/>
 
@@ -87,35 +91,39 @@
                             <f:selectItem itemLabel="Минская" itemValue="Минская" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Могилёвская" itemValue="Могилёвская" noSelectionOption="true"/>
                             <f:selectItem itemLabel="Гомельская" itemValue="Гомельская" noSelectionOption="true"/>
-                            <f:ajax process="@this region" update="@this region"/>
                         </p:selectOneMenu>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Город: *"/>
                         <p:inputText id="city" placeholder="г. Минск" value="#{companyCreateBean.city}"
+                                     requiredMessage="Неверный город"
                                      style="margin-left: 8.7%; width: 231px;">
-                            <f:ajax process="@this city" update="@this city"/>
+                            <f:validateRequired/>
                         </p:inputText>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Улица: *"/>
-                        <p:inputText id="street" placeholder="ул. Пинская" value="#{companyCreateBean.street}"
+                        <p:inputText id="street" placeholder="ул. Пинская"
+                                     value="#{companyCreateBean.street}"
+                                     requiredMessage="Неверная улица"
                                      style="margin-left: 8.6%; width: 231px;">
-                            <f:ajax process="@this street" update="@this street"/>
+                            <f:validateRequired/>
                         </p:inputText>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Номер дома: *"/>
-                        <p:inputText id="numberHouse" value="#{companyCreateBean.numberHouse}" placeholder="№ 54"
+                        <p:inputText id="numberHouse"
+                                     value="#{companyCreateBean.numberHouse}"
+                                     placeholder="№ 54"
+                                     requiredMessage="Неверный номер"
                                      style="margin-left: 4%; width: 231px;">
-                            <f:ajax process="@this numberHouse" update="@this numberHouse"/>
+                            <f:validateRequired/>
                         </p:inputText>
                         <br/><br/><br/>
 
                         <p:outputLabel value="Доступ: *"/>
                         <p:selectBooleanCheckbox id="study" value="#{companyCreateBean.bool}"
                                                  style="margin-left: 8%;">
-                            <f:ajax process="@this study" update="@this study"/>
                         </p:selectBooleanCheckbox>
                         <br/><br/><br/>
                     </h:form>

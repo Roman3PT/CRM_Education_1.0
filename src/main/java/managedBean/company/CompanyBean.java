@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Data
@@ -42,27 +43,34 @@ public class CompanyBean implements Serializable {
     }
 
     public void goToUpdate() {
-        if (number < 0) {
+        if (Objects.isNull(number))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
-        } else {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("updateCompanyPage.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
+        else {
+            if (Objects.isNull(companyDAOService.getCompany(number)))
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующий номер компании"));
+            else {
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("updateCompanyPage.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public void remove() {
-        if (number < 0) {
+        if (Objects.isNull(number))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
-        } else {
-            companyDAOService.remove(number);
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("companyMainPage.xhtml");
-            } catch (IOException e) {
-                e.printStackTrace();
+        else {
+            if (!companyDAOService.remove(number))
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка", "Введите существующий номер компании"));
+            else {
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("companyMainPage.xhtml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -56,11 +56,14 @@
             <p:panel id="FastMenu" header="Главное меню"
                      footer="ООО 'СофтКлуб - Центр разработки' "
                      styleClass="leftMenu">
+
                 <p:growl id="growl" showDetail="true" sticky="true">
                     <p:autoUpdate/>
                 </p:growl>
-                <p:inputText id="SDSearch" styleClass="search_input" value="#{mainPage.number}"
-                             placeholder="Номер"/>
+
+                <p:inputNumber id="SDSearch" styleClass="search_input" value="#{mainPage.number}" minValue="1"
+                               maxValue="99999"
+                               placeholder="Номер"/>
                 <p:message for="SDSearch"/>
                 <br/><br/><br/>
 
@@ -75,6 +78,7 @@
                 <br/><br/>
 
                 <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this SDSearch"
+                                 update="@this SDSearch"
                                  partialSubmit="true"
                                  action="#{mainPage.goToUpdateEvent}"/>
                 <br/><br/><br/>

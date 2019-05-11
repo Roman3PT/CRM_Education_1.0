@@ -30,6 +30,7 @@ public class CompanyCreateBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        region = "Бресткая";
         company = new Company();
         companyDAOService = new CompanyDAOService();
     }

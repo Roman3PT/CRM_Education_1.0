@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import model.entity.Student;
 import model.service.SpecialtyDAOService;
 import model.service.StudentDAOService;
+import org.primefaces.component.growl.Growl;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,11 +36,14 @@ public class StudentCreateBean implements Serializable {
     private StudentDAOService studentDAOService;
     private Student student;
 
+    private Growl growl;
+
     @PostConstruct
     public void init() {
         specialtyName = "ИСиТ";
         studentDAOService = new StudentDAOService();
         student = new Student();
+        growl = new Growl();
     }
 
     public void add() {
@@ -61,6 +65,10 @@ public class StudentCreateBean implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void growlTimeout() {
+        growl.setLife(4000);
     }
 
     @PreDestroy

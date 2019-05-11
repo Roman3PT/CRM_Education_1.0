@@ -57,11 +57,14 @@
             <p:panel id="FastMenu" header="Главное меню"
                      footer="ООО 'СофтКлуб - Центр разработки' совместно с Белорусским Государственным Технологическим Университетом"
                      styleClass="leftMenu">
+
                 <p:growl id="growl" showDetail="true" sticky="true">
                     <p:autoUpdate/>
                 </p:growl>
-                <p:inputText id="SDSearch" styleClass="search_input" value="#{studentMainPage.number}"
-                             placeholder="Номер"/>
+
+                <p:inputNumber id="SDSearch" styleClass="search_input" value="#{studentMainPage.number}" minValue="1"
+                               maxValue="99999"
+                               placeholder="Номер"/>
                 <p:message for="SDSearch"/>
                 <br/><br/><br/>
 
@@ -80,33 +83,44 @@
                 </p:commandButton>
                 <br/><br/><br/>
             </p:panel>
-            <p:dataTable id="Event" var="student" value="#{studentMainPage.students}" scrollable="true"
-                         scrollHeight="810">
-                <p:column headerText="№" width="50" sortBy="#{student.id}">
-                    <h:outputText value="#{student.id}"/>
-                </p:column>
-                <p:column headerText="ФИО" sortBy="#{student.fullName}">
-                    <h:outputText value="#{student.fullName}"/>
-                </p:column>
-                <p:column headerText="Специальность" width="150" sortBy="#{student.specialty.id}">
-                    <h:outputText value="#{student.specialty.name}"/>
-                </p:column>
-                <p:column headerText="Мобильный номер" sortBy="#{student.phoneNumber}">
-                    <h:outputText value="#{student.phoneNumber}"/>
-                </p:column>
-                <p:column headerText="Студенческий билет" width="160" sortBy="#{student.ticketNumber}">
-                    <h:outputText value="#{student.ticketNumber}"/>
-                </p:column>
-                <p:column headerText="Год поступления" width="160" sortBy="#{student.admissionYear}">
-                    <h:outputText value="#{student.admissionYear}"/>
-                </p:column>
-                <p:column headerText="Учиться" width="160" sortBy="#{student.existing}">
-                    <h:outputText value="#{student.existing}"/>
-                </p:column>
-                <p:column headerText="Рейтинг" width="70" sortBy="#{student.rating}">
-                    <h:outputText value="#{student.rating}"/>
-                </p:column>
-            </p:dataTable>
+            <h:form>
+                <p:dataTable id="Event" var="student" value="#{studentMainPage.students}" scrollable="true"
+                             scrollHeight="810">
+                    <p:column headerText="№" width="50" sortBy="#{student.id}">
+                        <h:outputText value="#{student.id}"/>
+                    </p:column>
+                    <p:column headerText="ФИО" sortBy="#{student.fullName}">
+                        <h:outputText value="#{student.fullName}"/>
+                    </p:column>
+                    <p:column headerText="Специальность" width="150" sortBy="#{student.specialty.id}"
+                              filterBy="#{student.specialty.name}" filterMatchMode="equals">
+                        <f:facet name="specialtyName">
+                            <p:selectOneMenu onchange="PF('specialtyName').filter()" styleClass="custom-filter">
+                                <f:selectItem itemLabel="ПОИТ" itemValue="ПОИТ" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="ИСиТ" itemValue="ИСиТ" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="ПОИБМС" itemValue="ПОИБМС" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="ДЭиВИ" itemValue="ДЭиВИ" noSelectionOption="true"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputLabel value="#{student.specialty.name}"/>
+                    </p:column>
+                    <p:column headerText="Мобильный номер" sortBy="#{student.phoneNumber}">
+                        <h:outputText value="#{student.phoneNumber}"/>
+                    </p:column>
+                    <p:column headerText="Студенческий билет" width="160" sortBy="#{student.ticketNumber}">
+                        <h:outputText value="#{student.ticketNumber}"/>
+                    </p:column>
+                    <p:column headerText="Год поступления" width="160" sortBy="#{student.admissionYear}">
+                        <h:outputText value="#{student.admissionYear}"/>
+                    </p:column>
+                    <p:column headerText="Учиться" width="160" sortBy="#{student.existing}">
+                        <h:outputText value="#{student.existing}"/>
+                    </p:column>
+                    <p:column headerText="Рейтинг" width="70" sortBy="#{student.rating}">
+                        <h:outputText value="#{student.rating}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </div>
     </div>
     <div class="footerDown">
