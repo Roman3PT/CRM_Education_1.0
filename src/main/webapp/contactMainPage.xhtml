@@ -4,7 +4,7 @@
 
 <html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
->
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Меню Контактов</title>
@@ -82,24 +82,31 @@
                                  action="#{contactMainPage.update}"/>
                 <br/><br/><br/>
             </p:panel>
-            <p:dataTable id="Contact" var="contact" value="#{contactMainPage.contacts}" scrollable="true"
-                         scrollHeight="810">
-                <p:column headerText="Номер" sortBy="#{contact.id}">
-                    <h:outputText value="#{contact.id}"/>
-                </p:column>
-                <p:column headerText="Название Компании" sortBy="#{contact.company.name}">
-                    <h:outputText value="#{contact.company.name}"/>
-                </p:column>
-                <p:column headerText="Мобильный Телефон">
-                    <h:outputText value="#{contact.phoneNumber}"/>
-                </p:column>
-                <p:column headerText="Адрес">
-                    <h:outputText value="#{contact.company.address}"/>
-                </p:column>
-                <p:column headerText="Описание">
-                    <h:outputText value="#{contact.description}"/>
-                </p:column>
-            </p:dataTable>
+            <h:form>
+                <p:dataTable id="Contact" var="contact" value="#{contactMainPage.contacts}" scrollable="true"
+                             scrollHeight="810">
+                    <p:column headerText="Номер" sortBy="#{contact.id}">
+                        <h:outputText value="#{contact.id}"/>
+                    </p:column>
+                    <p:column headerText="Название Компании" sortBy="#{contact.company.name}"
+                              filterBy="#{contact.company.name}"
+                              filterMatchMode="contains">
+                        <f:facet name="companyName">
+                            <p:inputText onchange="PF('companyName').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{contact.company.name}"/>
+                    </p:column>
+                    <p:column headerText="Мобильный Телефон">
+                        <h:outputText value="#{contact.phoneNumber}"/>
+                    </p:column>
+                    <p:column headerText="Адрес">
+                        <h:outputText value="#{contact.company.address}"/>
+                    </p:column>
+                    <p:column headerText="Описание">
+                        <h:outputText value="#{contact.description}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </div>
     </div>
     <div class="footerDown">

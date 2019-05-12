@@ -1,10 +1,13 @@
 package model.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
+@Data
 @Entity(name = "STUDENT")
 @Table(name = "STUDENT")
 public class Student extends AbstractCRMEducation implements Serializable {
@@ -14,7 +17,7 @@ public class Student extends AbstractCRMEducation implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "fullName")
+    @Column(name = "fullName", nullable = false)
     private String fullName;
 
     @Column(name = "admission_year")
@@ -27,89 +30,17 @@ public class Student extends AbstractCRMEducation implements Serializable {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "ticketNumber")
+    @Column(name = "ticketNumber", nullable = false, unique = true)
     private String ticketNumber;
 
     @Column(name = "isExist")
     private boolean existing;
 
-    @Column(name = "rating")
+    @Column(name = "rating", nullable = false)
     private Integer rating;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "student")
     private Set<Event> events;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getAdmissionYear() {
-        return admissionYear;
-    }
-
-    public void setAdmissionYear(String admissionYear) {
-        this.admissionYear = admissionYear;
-    }
-
-    public Specialty getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getTicketNumber() {
-        return ticketNumber;
-    }
-
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
-    }
-
-    public boolean isExisting() {
-        return existing;
-    }
-
-    public void setExisting(boolean existing) {
-        this.existing = existing;
-    }
-
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
-    public Set<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(Set<Event> events) {
-        this.events = events;
-    }
 
     @Override
     public boolean equals(Object o) {

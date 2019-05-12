@@ -19,10 +19,10 @@ public class EventType extends AbstractCRMEducation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "type")

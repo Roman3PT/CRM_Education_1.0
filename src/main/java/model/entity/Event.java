@@ -21,15 +21,15 @@ public class Event extends AbstractCRMEducation implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @JoinColumn(name = "company_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Company company;
 
-    @JoinColumn(name = "type_event_id", referencedColumnName = "id")
+    @JoinColumn(name = "type_event_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private EventType type;
 
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Student student;
 }

@@ -31,6 +31,11 @@ public class EventDAOService {
         return eventDAO.createQuery("FROM EVENT", Event.class).list();
     }
 
+    public List<Event> getEventsToCompany(String companyName) {
+        return eventDAO.createQuery("SELECT e FROM EVENT e INNER JOIN COMPANY c ON e.company.id = c.id WHERE c.name = :companyName", Event.class)
+                .setParameter("companyName", companyName).list();
+    }
+
     public boolean deleteEvent(Long id) {
         Event event = eventDAO.get(Event.class, id);
         boolean rc = !Objects.isNull(event);

@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ViewScoped
+@RequestScoped
 @ManagedBean
 public class StudentMainPage implements Serializable {
 
@@ -78,7 +78,7 @@ public class StudentMainPage implements Serializable {
         }
     }
 
-    private String studentStyding(boolean isExist) {
+    public String studentStyding(boolean isExist) {
         if (isExist)
             return "Да";
         else

@@ -6,8 +6,9 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
 
+
 <h:head>
-    <title>Меню Событий</title>
+    <title>Меню студентов для</title>
     <h:outputStylesheet name="bodyStyle.css" library="css"/>
     <h:outputStylesheet name="mainPage.css" library="css"/>
     <link rel="shortcut icon" href="resources/image/CRM_Education_icon.png" type="image/png"/>
@@ -16,8 +17,7 @@
 <h:body styleClass="bodyBackground">
     <div class="headerCF">
         <div class="main-menu">
-            <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
-            <p:outputLabel value="МЕНЮ СОБЫТИЙ" styleClass="qwerty"/>
+            <p:outputLabel value="СПИСОК СТУДЕНТОВ" styleClass="qwerty"/>
             <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
                              style="margin-left: 35%"/>
             <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
@@ -30,60 +30,14 @@
         <h:outputText
                 value="Данное программное обеспечение разрабатывалось при помощи заведующего кафедры Смелова В.В.
                  и студента дипломника Богатко Р. И. Всю контактную информацию вы можете найти по ссылке."/>
-        <br/>
+        <br/><br/>
         <a href="https://e.mail.ru/compose/">romanbogatko1998@mail.ru</a>
     </p:dialog>
-    <p:sidebar id="TreeItems" widgetVar="sidebar1" baseZIndex="10000">
-        <h1 style="font-weight:normal">Меню</h1>
-        <h:form>
-            <p:inputText styleClass="search_input" placeholder="Поиск"/>
-            <br/><br/>
-            <p:tree id="TreeSet" value="#{mainPage.root}" var="node" selectionMode="single"
-                    selection="#{mainPage.selectionNode}" process="@this"
-                    update="@this">
-                <p:treeNode>
-                    <p:commandLink value="#{node}"/>
-                </p:treeNode>
-            </p:tree>
-            <br/><br/>
-            <p:commandButton id="ChooseTreeItem" value="Поиск" styleClass="queryButton" process="@this TreeSet"
-                             update="@this TreeSet" action="#{mainPage.goToPage}"/>
-        </h:form>
-    </p:sidebar>
     <div>
         <div style="display: flex; margin-top: 4px;">
-            <p:panel id="FastMenu" header="Главное меню"
-                     footer="ООО 'СофтКлуб - Центр разработки' "
-                     styleClass="leftMenu">
-
-                <p:growl id="growl" showDetail="true" sticky="true">
-                    <p:autoUpdate/>
-                </p:growl>
-
-                <p:inputNumber id="SDSearch" styleClass="search_input" value="#{mainPage.number}" minValue="1"
-                               maxValue="99999"
-                               placeholder="Номер"/>
-                <p:message for="SDSearch"/>
-                <br/><br/><br/>
-
-                <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
-                                 action="#{mainPage.goToAddEvent}"/>
-                <br/><br/>
-
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this SDSearch"
-                                 update="@this SDSearch"
-                                 partialSubmit="true"
-                                 action="#{mainPage.remove}"/>
-                <br/><br/>
-
-                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this SDSearch"
-                                 update="@this SDSearch"
-                                 partialSubmit="true"
-                                 action="#{mainPage.goToUpdateEvent}"/>
-                <br/><br/><br/>
-            </p:panel>
             <h:form>
-                <p:dataTable id="Event" var="event" value="#{mainPage.events}" scrollable="true" scrollHeight="810">
+                <p:dataTable id="Event" var="event" value="#{client.events}" scrollable="true" scrollHeight="810"
+                             style="height: 860px;">
                     <p:column headerText="Номер" sortBy="#{event.id}">
                         <h:outputText value="#{event.id}"/>
                     </p:column>
@@ -103,13 +57,21 @@
                         </f:facet>
                         <h:outputText value="#{event.student.fullName}"/>
                     </p:column>
-                    <p:column headerText="Компания" sortBy="#{event.company.name}"
-                              filterBy="#{event.company.name}"
+                    <p:column headerText="Моб номер" sortBy="#{event.student.phoneNumber}"
+                              filterBy="#{event.student.phoneNumber}"
                               filterMatchMode="contains">
-                        <f:facet name="companyName">
-                            <p:inputText onchange="PF('companyName').filter()"/>
+                        <f:facet name="phoneNumber">
+                            <p:inputText onchange="PF('phoneNumber').filter()"/>
                         </f:facet>
-                        <h:outputText value="#{event.company.name}"/>
+                        <h:outputText value="#{event.student.phoneNumber}"/>
+                    </p:column>
+                    <p:column headerText="Учиться" sortBy="#{event.student.existing}"
+                              filterBy="#{event.student.existing}"
+                              filterMatchMode="contains">
+                        <f:facet name="existing">
+                            <p:inputText onchange="PF('existing').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{event.student.existing}"/>
                     </p:column>
                     <p:column headerText="Описание">
                         <h:outputText value="#{event.description}"/>

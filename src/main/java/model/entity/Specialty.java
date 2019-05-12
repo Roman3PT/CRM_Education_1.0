@@ -1,48 +1,28 @@
 package model.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
+
+@Data
 @Entity(name = "SPECIALTY")
 @Table(name = "SPECIALTY")
 public class Specialty extends AbstractCRMEducation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "specialty")
     private Set<Student> students;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }
 
     @Override
     public boolean equals(Object o) {

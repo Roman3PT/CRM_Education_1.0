@@ -19,6 +19,10 @@
         <p:outputLabel value="CRM_Education" styleClass="logo"/>
         <br/><br/>
 
+        <p:growl id="growl" showDetail="true" sticky="true">
+            <p:autoUpdate/>
+        </p:growl>
+
         <p:messages id="msgs" closable="true" showSummary="true">
             <p:autoUpdate/>
         </p:messages>
@@ -57,6 +61,8 @@
                          value="Войти"
                          styleClass="signIn"
                          process="@this formAuthorization"
+                         update="@this formAuthorization"
+                         partialSubmit="true"
                          actionListener="#{authorization.signIn}"/>
     </h:form>
 </h:body>

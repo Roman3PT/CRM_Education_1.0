@@ -4,7 +4,7 @@
 
 <html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
->
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Меню Компаний</title>
@@ -59,7 +59,8 @@
                 <p:growl id="growl" showDetail="true" sticky="true">
                     <p:autoUpdate/>
                 </p:growl>
-                <p:inputNumber id="SDSearch" styleClass="search_input" value="#{companyBean.number}" minValue="1" maxValue="99999"
+                <p:inputNumber id="SDSearch" styleClass="search_input" value="#{companyBean.number}" minValue="1"
+                               maxValue="99999"
                                validatorMessage="Введите цифру"
                                placeholder="Номер">
                     <p:ajax process="@this" update="@this SDSearch" partialSubmit="true"/>
@@ -81,21 +82,27 @@
                                  action="#{companyBean.goToUpdate}"/>
                 <br/><br/><br/>
             </p:panel>
-            <p:dataTable id="Company" var="company" value="#{companyBean.companies}" scrollable="true"
-                         scrollHeight="810">
-                <p:column headerText="Номер" sortBy="#{company.id}">
-                    <h:outputText value="#{company.id}"/>
-                </p:column>
-                <p:column headerText="Название" sortBy="#{company.name}">
-                    <h:outputText value="#{company.name}"/>
-                </p:column>
-                <p:column headerText="Адрес">
-                    <h:outputText value="#{company.address}"/>
-                </p:column>
-                <p:column headerText="Описание">
-                    <h:outputText value="#{company.description}"/>
-                </p:column>
-            </p:dataTable>
+            <h:form>
+                <p:dataTable id="Company" var="company" value="#{companyBean.companies}" scrollable="true"
+                             scrollHeight="810">
+                    <p:column headerText="Номер" sortBy="#{company.id}">
+                        <h:outputText value="#{company.id}"/>
+                    </p:column>
+                    <p:column headerText="Название" sortBy="#{company.name}" filterBy="#{company.name}"
+                              filterMatchMode="contains">
+                        <f:facet name="companyName">
+                            <p:inputText onchange="PF('companyName').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{company.name}"/>
+                    </p:column>
+                    <p:column headerText="Адрес">
+                        <h:outputText value="#{company.address}"/>
+                    </p:column>
+                    <p:column headerText="Описание">
+                        <h:outputText value="#{company.description}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </div>
     </div>
     <div class="footerDown">
