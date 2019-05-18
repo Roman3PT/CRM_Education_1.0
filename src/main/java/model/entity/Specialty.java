@@ -1,6 +1,9 @@
 package model.entity;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,9 +11,11 @@ import java.util.Objects;
 import java.util.Set;
 
 
-@Data
+@Setter
+@Getter
 @Entity(name = "SPECIALTY")
 @Table(name = "SPECIALTY")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Specialty extends AbstractCRMEducation implements Serializable {
 
     @Id
@@ -22,7 +27,16 @@ public class Specialty extends AbstractCRMEducation implements Serializable {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "specialty")
+    @JsonIgnore
     private Set<Student> students;
+
+    @Override
+    public String toString() {
+        return "Specialty{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -36,15 +50,6 @@ public class Specialty extends AbstractCRMEducation implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Specialty{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", students=" + students +
-                '}';
+        return Objects.hash(id, name, students);
     }
 }

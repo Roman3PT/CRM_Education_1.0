@@ -1,19 +1,17 @@
 package model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
-@EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity(name = "CONTACT")
 @Table(name = "CONTACT")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Contact extends AbstractCRMEducation implements Serializable {
 
     @Id
@@ -27,4 +25,27 @@ public class Contact extends AbstractCRMEducation implements Serializable {
 
     @Column(name = "phoneNumber")
     private String phoneNumber;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return Objects.equals(id, contact.id) &&
+                Objects.equals(company, contact.company) &&
+                Objects.equals(phoneNumber, contact.phoneNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, company, phoneNumber);
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id=" + id +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }

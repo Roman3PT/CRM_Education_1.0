@@ -1,15 +1,20 @@
 package model.entity;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity(name = "STUDENT")
 @Table(name = "STUDENT")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student extends AbstractCRMEducation implements Serializable {
 
     @Id
@@ -40,13 +45,27 @@ public class Student extends AbstractCRMEducation implements Serializable {
     private Integer rating;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "student")
+    @JsonIgnore
     private Set<Event> events;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", admissionYear='" + admissionYear + '\'' +
+                ", specialty=" + specialty +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", ticketNumber='" + ticketNumber + '\'' +
+                ", existing=" + existing +
+                ", rating=" + rating +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         Student student = (Student) o;
         return existing == student.existing &&
                 Objects.equals(id, student.id) &&
@@ -61,21 +80,6 @@ public class Student extends AbstractCRMEducation implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id);
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", admissionYear='" + admissionYear + '\'' +
-                ", specialty=" + specialty +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", ticketNumber='" + ticketNumber + '\'' +
-                ", existing=" + existing +
-                ", rating=" + rating +
-                ", events=" + events +
-                '}';
+        return Objects.hash(id, fullName, admissionYear, specialty, phoneNumber, ticketNumber, existing, rating, events);
     }
 }
