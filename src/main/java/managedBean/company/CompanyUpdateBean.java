@@ -33,7 +33,7 @@ public class CompanyUpdateBean implements Serializable {
     }
 
     public void update() {
-        company.setAddress(region + " " + city + " " + street + " " + numberHouse);
+        company.setAddress(region + " обл., г. " + city + " ул. " + street + " д " + numberHouse);
         companyDAOService.update(company);
         back();
     }
@@ -49,8 +49,8 @@ public class CompanyUpdateBean implements Serializable {
     private void splitCompany(String address) {
         String[] _address = address.split(" ");
         region = _address[0];
-        city = _address[1];
-        street = _address[2];
-        numberHouse = _address[3];
+        city = _address[3];
+        street = _address[5];
+        numberHouse = _address[7];
     }
 }

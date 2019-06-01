@@ -54,7 +54,7 @@
     <div>
         <div style="display: flex; margin-top: 4px;">
             <p:panel id="FastMenu"
-                     header="Добавление компании в список контактов"
+                     header="Редактирование данных о контакте"
                      footer="Белорусский Государственный Технологический Университет совместно с ООО 'СофтКлуб - Центр разработки'"
                      styleClass="centerAddMenu">
                 <div>
@@ -80,6 +80,17 @@
                         </p:selectOneMenu>
                         <br/><br/><br/>
 
+                        <p:outputLabel value="ФИО: *"/>
+                        <p:inputText id="course" placeholder="Богатко Роман Игоревич"
+                                     value="#{contactUpdateBean.contactPerson}"
+                                     required="true"
+                                     requiredMessage="Неверная информация"
+                                     validatorMessage="Длина 5 - 20 символов"
+                                     style="margin-left: 6.5%; width: 231px;">
+                            <f:validateLength minimum="5" maximum="20"/>
+                        </p:inputText>
+                        <br/><br/><br/>
+
                         <p:outputLabel value="Моб. номер : *"/>
                         <p:inputMask id="phoneNumber" value="#{contactUpdateBean.phoneNumber}"
                                      placeholder="+375 (44) 548-44-03"
@@ -90,7 +101,7 @@
                     <div>
                         <p:commandButton id="Back" value="Назад" styleClass="backAndAddB" process="@this FastMenu"
                                          update="@this FastMenu" action="#{contactUpdateBean.back}"/>
-                        <p:commandButton id="Addition" value="Добавить" styleClass="backAndAddB"
+                        <p:commandButton id="Addition" value="Изменить" styleClass="backAndAddB"
                                          process="@this updateContact" update="@this updateContact" partialSubmit="true"
                                          action="#{contactUpdateBean.update}"/>
                         <br/><br/><br/>

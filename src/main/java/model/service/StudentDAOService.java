@@ -40,6 +40,15 @@ public final class StudentDAOService {
                 .setParameter("ticketNumberName", ticketNumber).list().get(0);
     }
 
+    public List<Student> getStudentFromCompany(String group, Integer type_event_id) {
+        return studentDAO.createQuery("SELECT s.* FROM STUDENT s" +
+                " LEFT JOIN EVENT e on e.type_event.id = e.student.id " +
+                "left join TYPE_EVENT t on e.type_event.id = t.id" +
+                "where t.id = :typeEventName AND s.group = :groupName", Student.class)
+                .setParameter("typeEventName", type_event_id)
+                .setParameter("groupName", group).list();
+    }
+
     public void update(Student student) {
         studentDAO.update(student);
     }

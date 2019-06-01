@@ -37,11 +37,11 @@ public class Company extends AbstractCRMEducation implements Serializable {
     @Column(name = "isBool")
     private boolean isBool;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "company")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true, mappedBy = "company")
     @JsonIgnore
     private Set<Event> events;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "company")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true, mappedBy = "company")
     @JsonIgnore
     private Set<Contact> contacts;
 

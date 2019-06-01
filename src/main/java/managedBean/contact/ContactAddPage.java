@@ -26,6 +26,7 @@ public class ContactAddPage implements Serializable {
     private List<Company> companies;
     private String companyName;
     private String phoneNumber;
+    private String contactPerson;
     private String description;
     private Contact contact;
 
@@ -38,7 +39,7 @@ public class ContactAddPage implements Serializable {
         companies = new ArrayList<>();
         companyDAOService = new CompanyDAOService();
         contactDAOService = new ContactDAOService();
-        companies.addAll(companyDAOService.getListCompanyToContact());
+        companies.addAll(companyDAOService.getListCompany());
     }
 
     public void back() {
@@ -52,6 +53,7 @@ public class ContactAddPage implements Serializable {
     public void add() {
         contact.setCompany(companyDAOService.getCompany(companyName));
         contact.setPhoneNumber(phoneNumber);
+        contact.setPerson(contactPerson);
         contact.setDescription(description);
         contactDAOService.save(contact);
         back();

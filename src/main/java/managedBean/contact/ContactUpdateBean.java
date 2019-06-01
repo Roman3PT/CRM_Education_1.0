@@ -25,6 +25,7 @@ public class ContactUpdateBean implements Serializable {
 
     private String companyName;
     private String phoneNumber;
+    private String contactPerson;
     private String description;
     private Contact contact;
     private List<Company> companies;
@@ -39,9 +40,10 @@ public class ContactUpdateBean implements Serializable {
         contactDAOService = new ContactDAOService();
         contact = contactDAOService.getContact(id);
         companies = new ArrayList<>();
-        companies.addAll(companyDAOService.getListCompanyToContact());
+        companies.addAll(companyDAOService.getListCompany());
         companies.add(contact.getCompany());
         companyName = contact.getCompany().getName();
+        contactPerson = contact.getPerson();
         phoneNumber = contact.getPhoneNumber();
         description = contact.getDescription();
     }
@@ -49,6 +51,7 @@ public class ContactUpdateBean implements Serializable {
     public void update() {
         contact.setCompany(companyDAOService.getCompany(companyName));
         contact.setPhoneNumber(phoneNumber);
+        contact.setPerson(contactPerson);
         contact.setDescription(description);
         contactDAOService.update(contact);
         back();

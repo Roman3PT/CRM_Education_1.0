@@ -56,7 +56,7 @@
             <p:panel id="FastMenu"
                      header="Редактирование данных о студенте"
                      footer="Белорусский Государственный Технологический Университет"
-                     styleClass="centerAddMenu">
+                     styleClass="centerAddMenuStudent">
                 <div>
                     <h:form style="margin-left: 5%; ">
 
@@ -117,13 +117,12 @@
 
                         <p:outputLabel value="Дата поступления: *"/>
                         <p:inputMask id="date" value="#{studentUpdateBean.student.admissionYear}"
-                                     placeholder="23.06.1998"
-                                     mask="99.99.9999"
+                                     placeholder="1998"
+                                     mask="9999"
                                      required="true"
                                      requiredMessage="Неверная дата поступления"
                                      style="margin-left: 2%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
-                            <f:convertDateTime pattern="dd.MM.yyyy" for="date"/>
                         </p:inputMask>
                         <br/><br/>
 
@@ -144,6 +143,28 @@
                                      validatorMessage="Длина 8 цифр"
                                      style="margin-left: 6.5%; width: 231px;">
                             <p:ajax process="@this" partialSumbit="true"/>
+                        </p:inputText>
+                        <br/><br/>
+
+                        <p:outputLabel value="Курс: *"/>
+                        <p:inputText id="course" placeholder="1"
+                                     value="#{studentUpdateBean.student.courseNumber}"
+                                     required="true"
+                                     requiredMessage="Неверный номер курса"
+                                     style="margin-left: 11.8%; width: 231px;">
+                            <f:ajax process="@this course" update="@this course"/>
+                            <f:validateLength minimum="1" maximum="2"/>
+                        </p:inputText>
+                        <br/><br/>
+
+                        <p:outputLabel value="Группа: *"/>
+                        <p:inputText id="group" placeholder="8"
+                                     value="#{studentUpdateBean.student.groupNumber}"
+                                     required="true"
+                                     requiredMessage="Неверный номер группы"
+                                     style="margin-left: 10%; width: 231px;">
+                            <f:ajax process="@this group" update="@this group"/>
+                            <f:validateLength minimum="1" maximum="2"/>
                         </p:inputText>
                         <br/><br/>
 

@@ -96,6 +96,14 @@
                         </f:facet>
                         <h:outputText value="#{contact.company.name}"/>
                     </p:column>
+                    <p:column headerText="ФИО:" sortBy="#{contact.person}"
+                              filterBy="#{contact.person}"
+                              filterMatchMode="contains">
+                        <f:facet name="person">
+                            <p:inputText onchange="PF('person').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{contact.person}"/>
+                    </p:column>
                     <p:column headerText="Мобильный Телефон">
                         <h:outputText value="#{contact.phoneNumber}"/>
                     </p:column>

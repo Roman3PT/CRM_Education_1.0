@@ -83,7 +83,8 @@
                 <br/><br/><br/>
             </p:panel>
             <h:form>
-                <p:dataTable id="Event" var="event" value="#{mainPage.events}" scrollable="true" scrollHeight="780">
+                <p:dataTable id="Event" var="event" widgetVar="eventTable" value="#{mainPage.events}" scrollable="true"
+                             scrollHeight="780">
                     <p:column headerText="Номер" sortBy="#{event.id}">
                         <h:outputText value="#{event.id}"/>
                     </p:column>
@@ -96,12 +97,36 @@
                         <h:outputText value="#{event.type.name}"/>
                     </p:column>
                     <p:column headerText="Студент" sortBy="#{event.student.fullName}"
-                              filterBy="#{event.student.fullName}"
+                              filterBy="#{event.student}"
                               filterMatchMode="contains">
                         <f:facet name="studentName">
                             <p:inputText onchange="PF('studentName').filter()"/>
                         </f:facet>
                         <h:outputText value="#{event.student.fullName}"/>
+                    </p:column>
+                    <p:column headerText="Курс" sortBy="#{event.student.courseNumber}"
+                    filterBy="#{event.student.courseNumber}"
+                    filterMatchMode="exact">
+                        <f:facet name="courseNumber">
+                            <p:inputText onchange="PF('courseNumber').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{event.student.courseNumber}"/>
+                    </p:column>
+                    <p:column headerText="Группа" sortBy="#{event.student.groupNumber}"
+                              filterBy="#{event.student.groupNumber}"
+                              filterMatchMode="contains">
+                        <f:facet name="groupNumber">
+                            <p:inputText onchange="PF('groupNumber').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{event.student.groupNumber}"/>
+                    </p:column>
+                    <p:column headerText="Год поступления" sortBy="#{event.student.admissionYear}"
+                              filterBy="#{event.student.admissionYear}"
+                              filterMatchMode="contains">
+                        <f:facet name="admissionYear">
+                            <p:inputText onchange="PF('admissionYear').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{event.student.admissionYear}"/>
                     </p:column>
                     <p:column headerText="Компания" sortBy="#{event.company.name}"
                               filterBy="#{event.company.name}"

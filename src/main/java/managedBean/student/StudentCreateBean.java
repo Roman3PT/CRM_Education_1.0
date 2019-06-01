@@ -31,6 +31,8 @@ public class StudentCreateBean implements Serializable {
     private String phoneNumber;
     private String specialtyName;
     private String ticketNumber;
+    private String course;
+    private String group;
     private Integer rating;
     private String description;
     private StudentDAOService studentDAOService;
@@ -52,6 +54,8 @@ public class StudentCreateBean implements Serializable {
         student.setAdmissionYear(date);
         student.setPhoneNumber(phoneNumber);
         student.setTicketNumber(ticketNumber);
+        student.setCourseNumber(course);
+        student.setGroupNumber(group);
         student.setExisting(study);
         student.setRating(rating);
         student.setDescription(description);
@@ -65,10 +69,6 @@ public class StudentCreateBean implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void growlTimeout() {
-        growl.setLife(4000);
     }
 
     @PreDestroy

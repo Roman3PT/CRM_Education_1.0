@@ -79,6 +79,17 @@
                         </p:selectOneMenu>
                         <br/><br/><br/>
 
+                        <p:outputLabel value="ФИО: *"/>
+                        <p:inputText id="course" placeholder="Богатко Роман Игоревич"
+                                     value="#{contactAddPage.contactPerson}"
+                                     required="true"
+                                     requiredMessage="Неверная информация"
+                                     validatorMessage="Длина 5 - 20 символов"
+                                     style="margin-left: 6.5%; width: 231px;">
+                            <f:validateLength minimum="5" maximum="20"/>
+                        </p:inputText>
+                        <br/><br/><br/>
+
                         <p:outputLabel value="Моб. номер : *"/>
                         <p:inputMask id="phoneNumber" value="#{contactAddPage.phoneNumber}"
                                      placeholder="+375 (44) 548-44-03"

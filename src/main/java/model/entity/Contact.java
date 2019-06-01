@@ -1,7 +1,8 @@
 package model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,8 +21,11 @@ public class Contact extends AbstractCRMEducation implements Serializable {
     private Long id;
 
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
+
+    @Column(name = "contactPerson")
+    private String person;
 
     @Column(name = "phoneNumber")
     private String phoneNumber;

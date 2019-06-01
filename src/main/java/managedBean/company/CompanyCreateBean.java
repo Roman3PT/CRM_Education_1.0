@@ -37,7 +37,7 @@ public class CompanyCreateBean implements Serializable {
 
     public void add() {
         company.setName(name);
-        company.setAddress(region + " " + city + " " + street + " " + numberHouse);
+        company.setAddress(region + " обл., г. " + city + " ул. " + street + " д " + numberHouse);
         company.setBool(isBool);
         company.setDescription(description);
         companyDAOService.save(company);

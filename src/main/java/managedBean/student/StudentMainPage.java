@@ -30,6 +30,10 @@ public class StudentMainPage implements Serializable {
     private List<Student> students;
     private StudentDAOService studentDAOService;
 
+    private String course;
+    private String group;
+    private Boolean filter;
+
     @PostConstruct
     public void init() {
         students = new ArrayList<>();
@@ -83,6 +87,13 @@ public class StudentMainPage implements Serializable {
             return "Да";
         else
             return "Нет";
+    }
+
+    public void getStudentIsNotAtPractice() {
+        if (Objects.isNull(course) || Objects.isNull(group)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
+        } else
+            studentDAOService.getStudentFromCompany(group, 1);
     }
 
     @PreDestroy

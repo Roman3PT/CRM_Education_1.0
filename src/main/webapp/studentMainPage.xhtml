@@ -86,10 +86,23 @@
             <h:form id="eventDataTable">
                 <p:dataTable id="Event" var="student" value="#{studentMainPage.students}" scrollable="true"
                              scrollHeight="780">
+
+                    <f:facet name="header">
+                        <h:outputText value="Курс: "/>
+                        <p:inputText value="#{studentMainPage.course}"/>
+                        <h:outputText value="Группа: "/>
+                        <p:inputText value="#{studentMainPage.group}"/>
+                        <p:commandButton id="globalFilter" value="Найти" onkeyup="PF('carsTable').filter()"
+                                         action="#{studentMainPage.getStudentIsNotAtPractice}"
+                                         style="width:50px"
+                                         placeholder="Enter keyword" process="@this"
+                                         partialSubmit="true"/>
+                    </f:facet>
+
                     <p:column headerText="№" width="50" sortBy="#{student.id}">
                         <h:outputText value="#{student.id}"/>
                     </p:column>
-                    <p:column headerText="ФИО" sortBy="#{student.fullName}"
+                    <p:column headerText="ФИО" width="300" sortBy="#{student.fullName}"
                               filterBy="#{student.fullName}"
                               filterMatchMode="contains">
                         <f:facet name="studentName">
@@ -105,10 +118,10 @@
                         </f:facet>
                         <h:outputLabel value="#{student.specialty.name}"/>
                     </p:column>
-                    <p:column headerText="Мобильный номер" sortBy="#{student.phoneNumber}">
+                    <p:column headerText="Мобильный номер" width="180" sortBy="#{student.phoneNumber}">
                         <h:outputText value="#{student.phoneNumber}"/>
                     </p:column>
-                    <p:column headerText="Студенческий билет" width="160" sortBy="#{student.ticketNumber}"
+                    <p:column headerText="Студенческий билет" width="120" sortBy="#{student.ticketNumber}"
                               filterBy="#{student.ticketNumber}"
                               filterMatchMode="contains">
                         <f:facet name="ticketNumberName">
@@ -116,10 +129,28 @@
                         </f:facet>
                         <h:outputText value="#{student.ticketNumber}"/>
                     </p:column>
-                    <p:column headerText="Год поступления" width="160" sortBy="#{student.admissionYear}">
+                    <p:column headerText="Курс" width="50" sortBy="#{student.courseNumber}"
+                              filterBy="#{student.courseNumber}"
+                              filterMatchMode="contains">
+                        <f:facet name="courseNumber">
+                            <p:inputText onchange="PF('courseNumber').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{student.courseNumber}"/>
+                    </p:column>
+                    <p:column headerText="Группа" width="70" sortBy="#{student.groupNumber}"
+                              filterBy="#{student.groupNumber}"
+                              filterMatchMode="contains">
+                        <f:facet name="groupNumber">
+                            <p:inputText onchange="PF('groupNumber').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{student.groupNumber}"/>
+                    </p:column>
+                    <p:column headerText="Год поступ." width="70" sortBy="#{student.admissionYear}"
+                              filterBy="#{student.admissionYear}"
+                              filterMatchMode="contains">
                         <h:outputText value="#{student.admissionYear}"/>
                     </p:column>
-                    <p:column headerText="Учиться" width="160" sortBy="#{student.existing}"
+                    <p:column headerText="Учиться" width="70" sortBy="#{student.existing}"
                               filterBy="#{studentMainPage.studentStyding(student.existing)}"
                               filterMatchMode="contains">
                         <f:facet name="existingName">
@@ -127,7 +158,7 @@
                         </f:facet>
                         <h:outputText value="#{studentMainPage.studentStyding(student.existing)}"/>
                     </p:column>
-                    <p:column headerText="Рейтинг" width="70" sortBy="#{student.rating}"
+                    <p:column headerText="Рейтинг" width="60" sortBy="#{student.rating}"
                               filterBy="#{student.rating}"
                               filterMatchMode="contains">
                         <f:facet name="ratingName">

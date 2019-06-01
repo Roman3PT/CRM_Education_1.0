@@ -22,9 +22,6 @@ import java.util.List;
 @WebServlet("/getEvents")
 public class CRMMobileService extends HttpServlet {
 
-    private EventDAOService eventDAOService;
-    private CompanyDAOService companyDAOService;
-    private List<Event> events;
     private Company company;
 
     @Override
@@ -36,10 +33,10 @@ public class CRMMobileService extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        eventDAOService = new EventDAOService();
-        companyDAOService = new CompanyDAOService();
+        EventDAOService eventDAOService = new EventDAOService();
+        CompanyDAOService companyDAOService = new CompanyDAOService();
         company = new Company();
-        events = new ArrayList<>();
+        List<Event> events = new ArrayList<>();
         company = companyDAOService.getCompany(login, password);
         events.addAll(eventDAOService.getEventsToCompany(company.getName()));
         new ObjectMapper().writeValue(new File("event.json"), events);
