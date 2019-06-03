@@ -33,6 +33,7 @@ public class mainPage implements Serializable {
     private List<Event> events;
     private Long number;
     private EventDAOService eventDAOService;
+    private Event selectedEvent;
 
     @PostConstruct
     public void init() {
@@ -45,7 +46,7 @@ public class mainPage implements Serializable {
         root2.getChildren().add(new DefaultTreeNode("Меню компаний"));
         root3.getChildren().add(new DefaultTreeNode("Меню событий"));
         root4.getChildren().add(new DefaultTreeNode("Список контактов"));
-
+        selectedEvent = new Event();
         events = new ArrayList<>();
         eventDAOService = new EventDAOService();
         events.addAll(eventDAOService.getEvents());
@@ -67,13 +68,11 @@ public class mainPage implements Serializable {
     }
 
     public void remove() {
-        if (Objects.isNull(number))
+        if (Objects.isNull(selectedEvent))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
         else {
-            if (!eventDAOService.deleteEvent(number)) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующий номер события"));
-            } else
-                goToMainPageEvent();
+            eventDAOService.deleteSelectedEvent(selectedEvent);
+            goToMainPageEvent();
         }
     }
 
@@ -86,18 +85,15 @@ public class mainPage implements Serializable {
     }
 
     public void goToUpdateEvent() {
-        if (Objects.isNull(number))
+        if (Objects.isNull(selectedEvent))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
         else {
-            if (Objects.isNull(eventDAOService.getEvent(number)))
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующий номер события"));
-            else {
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("eventUpdatePage.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().clear();
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedEvent", selectedEvent);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("eventUpdatePage.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -61,30 +61,24 @@
                     <p:autoUpdate/>
                 </p:growl>
 
-                <p:inputText id="SDSearch" styleClass="search_input" value="#{contactMainPage.number}"
-                             placeholder="Номер">
-                    <p:ajax process="@this SDSearch" update="@this SDSearch" partialSubmit="true"/>
-                </p:inputText>
-                <p:message for="SDSearch"/>
-                <br/><br/><br/>
+                <br/><br/>
 
                 <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
                                  action="#{contactMainPage.add}"/>
                 <br/><br/>
-
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this FastMenu"
-                                 update="@this FastMenu" partialSubmit="true"
-                                 action="#{contactMainPage.remove}"/>
-                <br/><br/>
-
-                <p:commandButton id="updateItem" value="Редактировать" styleClass="queryButton" process="@this FastMenu"
-                                 update="@this FastMenu" partialSubmit="true"
-                                 action="#{contactMainPage.update}"/>
-                <br/><br/><br/>
             </p:panel>
             <h:form>
+
+                <p:contextMenu id="contextMenuContact" for="Contact">
+                    <p:menuitem value="Редактировать" icon="pi pi-search" action="#{contactMainPage.update}"/>
+                    <p:menuitem value="Удалить" update="Contact" icon="pi pi-times" action="#{contactMainPage.remove}"/>
+                </p:contextMenu>
+
                 <p:dataTable id="Contact" var="contact" value="#{contactMainPage.contacts}" scrollable="true"
-                             scrollHeight="780">
+                             scrollHeight="780"
+                rowKey="#{contact.id}"
+                selection="#{contactMainPage.selectedContact}"
+                selectionMode="single">
                     <p:column headerText="Номер" sortBy="#{contact.id}">
                         <h:outputText value="#{contact.id}"/>
                     </p:column>

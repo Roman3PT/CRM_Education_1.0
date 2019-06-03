@@ -62,46 +62,25 @@
                     <p:autoUpdate/>
                 </p:growl>
 
-                <p:inputNumber id="SDSearch" styleClass="search_input" value="#{studentMainPage.number}" minValue="1"
-                               maxValue="99999"
-                               placeholder="Номер"/>
-                <p:message for="SDSearch"/>
                 <br/><br/>
 
                 <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
                                  action="#{studentMainPage.goToAddStudent}"/>
                 <br/><br/>
-
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this FastMenu"
-                                 action="#{studentMainPage.remove}" update="@this FastMenu" partialSubmit="true"/>
-                <br/><br/>
-
-                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this FastMenu"
-                                 update="@this FastMenu" partialSubmit="true"
-                                 action="#{studentMainPage.goToUpdateStudent}">
-                    <f:param name="id" value="#{studentMainPage.number}"/>
-                </p:commandButton>
-                <br/><br/>
             </p:panel>
             <h:form id="eventDataTable">
-                <p:dataTable id="Event" var="student" value="#{studentMainPage.students}" scrollable="true"
-                             scrollHeight="780">
 
-                    <f:facet name="header">
-                        <h:outputText value="Курс: "/>
-                        <p:inputText value="#{studentMainPage.course}"/>
-                        <h:outputText value="Группа: "/>
-                        <p:inputText value="#{studentMainPage.group}"/>
-                        <p:commandButton id="globalFilter" value="Найти" onkeyup="PF('carsTable').filter()"
-                                         action="#{studentMainPage.getStudentIsNotAtPractice}"
-                                         style="width:50px"
-                                         placeholder="Enter keyword" process="@this"
-                                         partialSubmit="true"/>
-                    </f:facet>
+                <p:contextMenu id="contextMenuStudent" for="Student">
+                    <p:menuitem value="Редактировать" icon="pi pi-search"
+                                action="#{studentMainPage.goToUpdateStudent}"/>
+                    <p:menuitem value="Удалить" update="Student" icon="pi pi-times" action="#{studentMainPage.remove}"/>
+                </p:contextMenu>
 
-                    <p:column headerText="№" width="50" sortBy="#{student.id}">
-                        <h:outputText value="#{student.id}"/>
-                    </p:column>
+                <p:dataTable id="Student" var="student" value="#{studentMainPage.students}" scrollable="true"
+                             scrollHeight="780"
+                             rowKey="#{student.id}"
+                             selection="#{studentMainPage.selectedStudent}"
+                             selectionMode="single">
                     <p:column headerText="ФИО" width="300" sortBy="#{student.fullName}"
                               filterBy="#{student.fullName}"
                               filterMatchMode="contains">

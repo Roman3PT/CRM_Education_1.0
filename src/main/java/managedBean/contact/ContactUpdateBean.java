@@ -35,10 +35,9 @@ public class ContactUpdateBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        Long id = (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idContact");
+        contact = (Contact) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("selectedContact");
         companyDAOService = new CompanyDAOService();
         contactDAOService = new ContactDAOService();
-        contact = contactDAOService.getContact(id);
         companies = new ArrayList<>();
         companies.addAll(companyDAOService.getListCompany());
         companies.add(contact.getCompany());
@@ -67,6 +66,7 @@ public class ContactUpdateBean implements Serializable {
 
     @PreDestroy
     public void destroy() {
-
+        contactDAOService.close();
+        companyDAOService.close();
     }
 }

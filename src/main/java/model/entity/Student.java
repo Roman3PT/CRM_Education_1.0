@@ -1,6 +1,5 @@
 package model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -50,10 +48,6 @@ public class Student extends AbstractCRMEducation implements Serializable {
     @Column(name = "rating", nullable = false)
     private Integer rating;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true, mappedBy = "student")
-    @JsonIgnore
-    private Set<Event> events;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,13 +62,12 @@ public class Student extends AbstractCRMEducation implements Serializable {
                 Objects.equals(courseNumber, student.courseNumber) &&
                 Objects.equals(groupNumber, student.groupNumber) &&
                 Objects.equals(ticketNumber, student.ticketNumber) &&
-                Objects.equals(rating, student.rating) &&
-                Objects.equals(events, student.events);
+                Objects.equals(rating, student.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullName, admissionYear, specialty, phoneNumber, courseNumber, groupNumber, ticketNumber, existing, rating, events);
+        return Objects.hash(id, fullName, admissionYear, specialty, phoneNumber, courseNumber, groupNumber, ticketNumber, existing, rating);
     }
 
     @Override

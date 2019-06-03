@@ -60,34 +60,21 @@
                     <p:autoUpdate/>
                 </p:growl>
 
-                <p:inputNumber id="SDSearch" styleClass="search_input" value="#{mainPage.number}" minValue="1"
-                               maxValue="99999"
-                               placeholder="Номер"/>
-                <p:message for="SDSearch"/>
-                <br/><br/><br/>
+                <br/><br/>
 
                 <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
                                  action="#{mainPage.goToAddEvent}"/>
                 <br/><br/>
-
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this SDSearch"
-                                 update="@this SDSearch"
-                                 partialSubmit="true"
-                                 action="#{mainPage.remove}"/>
-                <br/><br/>
-
-                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this SDSearch"
-                                 update="@this SDSearch"
-                                 partialSubmit="true"
-                                 action="#{mainPage.goToUpdateEvent}"/>
-                <br/><br/><br/>
             </p:panel>
-            <h:form>
-                <p:dataTable id="Event" var="event" widgetVar="eventTable" value="#{mainPage.events}" scrollable="true"
-                             scrollHeight="780">
-                    <p:column headerText="Номер" sortBy="#{event.id}">
-                        <h:outputText value="#{event.id}"/>
-                    </p:column>
+            <h:form id="form">
+
+                <p:contextMenu id="contextMenuEvent" for="Event">
+                    <p:menuitem value="Редактировать" icon="pi pi-search" action="#{mainPage.goToUpdateEvent}"/>
+                    <p:menuitem value="Удалить" update="Event" icon="pi pi-times" action="#{mainPage.remove}"/>
+                </p:contextMenu>
+
+                <p:dataTable id="Event" var="event" rowKey="#{event.id}" widgetVar="eventTable" value="#{mainPage.events}" scrollable="true"
+                             scrollHeight="780" selection="#{mainPage.selectedEvent}" selectionMode="single">
                     <p:column headerText="Тип" sortBy="#{event.type.name}"
                               filterBy="#{event.type.name}"
                               filterMatchMode="contains">

@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
@@ -24,7 +25,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class EventUpdatePage implements Serializable {
 
     private String eventTypeName;
@@ -33,19 +34,18 @@ public class EventUpdatePage implements Serializable {
     private List<Company> companies;
     private String description;
 
-    private Event event;
+    private Event selectedEvent;
     private EventDAOService eventDAOService;
     private CompanyDAOService companyDAOService;
 
     @PostConstruct
     public void init() {
-        Long id = (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id");
+        selectedEvent = (Event) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("selectedEvent");
         eventDAOService = new EventDAOService();
         companyDAOService = new CompanyDAOService();
-        event = eventDAOService.getEvent(id);
-        eventTypeName = event.getType().getName();
-        ticketNumber = event.getStudent().getTicketNumber();
-        companyName = event.getCompany().getName();
+        eventTypeName = selectedEvent.getType().getName();
+        ticketNumber = selectedEvent.getStudent().getTicketNumber();
+        companyName = selectedEvent.getCompany().getName();
         companies = new ArrayList<>();
         companies.addAll(companyDAOService.getListCompany());
     }
@@ -59,11 +59,11 @@ public class EventUpdatePage implements Serializable {
     }
 
     public void update() {
-        event.setType(new EventTypeDAOService().getEventType(eventTypeName));
-        event.setStudent(new StudentDAOService().getStudent(ticketNumber));
-        event.setCompany(companyDAOService.getCompany(companyName));
-        event.setDescription(description);
-        eventDAOService.update(event);
+        selectedEvent.setType(new EventTypeDAOService().getEventType(eventTypeName));
+        selectedEvent.setStudent(new StudentDAOService().getStudent(ticketNumber));
+        selectedEvent.setCompany(companyDAOService.getCompany(companyName));
+        selectedEvent.setDescription(description);
+        eventDAOService.update(selectedEvent);
         back();
     }
 

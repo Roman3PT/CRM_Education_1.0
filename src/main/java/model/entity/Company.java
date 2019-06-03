@@ -1,6 +1,5 @@
 package model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -19,10 +17,10 @@ public class Company extends AbstractCRMEducation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "login")
@@ -36,14 +34,6 @@ public class Company extends AbstractCRMEducation implements Serializable {
 
     @Column(name = "isBool")
     private boolean isBool;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true, mappedBy = "company")
-    @JsonIgnore
-    private Set<Event> events;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true, mappedBy = "company")
-    @JsonIgnore
-    private Set<Contact> contacts;
 
     @Override
     public String toString() {
@@ -67,13 +57,11 @@ public class Company extends AbstractCRMEducation implements Serializable {
                 Objects.equals(name, company.name) &&
                 Objects.equals(login, company.login) &&
                 Objects.equals(password, company.password) &&
-                Objects.equals(address, company.address) &&
-                Objects.equals(events, company.events) &&
-                Objects.equals(contacts, company.contacts);
+                Objects.equals(address, company.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, login, password, address, isBool, events, contacts);
+        return Objects.hash(id, name, login, password, address, isBool);
     }
 }

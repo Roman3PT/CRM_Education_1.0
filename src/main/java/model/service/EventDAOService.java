@@ -44,6 +44,10 @@ public class EventDAOService {
         return rc;
     }
 
+    public void deleteSelectedEvent(Event event) {
+        eventDAO.delete(event);
+    }
+
     public Event getEvent(Long id) {
         return eventDAO.get(Event.class, id);
     }

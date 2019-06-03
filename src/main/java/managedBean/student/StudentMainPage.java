@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class StudentMainPage implements Serializable {
 
@@ -29,6 +29,7 @@ public class StudentMainPage implements Serializable {
     private String study;
     private List<Student> students;
     private StudentDAOService studentDAOService;
+    private Student selectedStudent;
 
     private String course;
     private String group;
@@ -36,6 +37,7 @@ public class StudentMainPage implements Serializable {
 
     @PostConstruct
     public void init() {
+        selectedStudent = new Student();
         students = new ArrayList<>();
         studentDAOService = new StudentDAOService();
         students.addAll(studentDAOService.getStudents());
@@ -50,35 +52,25 @@ public class StudentMainPage implements Serializable {
     }
 
     public void goToUpdateStudent() {
-        if (Objects.isNull(number))
+        if (Objects.isNull(selectedStudent))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
         else {
-            if (Objects.isNull(studentDAOService.getStudent(number)))
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующего студента"));
-            else {
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("updateStudentPage.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().clear();
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedStudent", selectedStudent);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("updateStudentPage.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
     public void remove() {
-        if (Objects.isNull(number))
+        if (Objects.isNull(selectedStudent))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
         else {
-            if (!studentDAOService.remove(number))
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующего студента"));
-            else {
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            studentDAOService.remove(selectedStudent);
+            refreshPage();
         }
     }
 
@@ -94,6 +86,14 @@ public class StudentMainPage implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
         } else
             studentDAOService.getStudentFromCompany(group, 1);
+    }
+
+    public void refreshPage() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @PreDestroy

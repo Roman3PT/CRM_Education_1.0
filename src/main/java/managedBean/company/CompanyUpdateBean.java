@@ -28,7 +28,7 @@ public class CompanyUpdateBean implements Serializable {
     @PostConstruct
     public void init() {
         companyDAOService = new CompanyDAOService();
-        company = companyDAOService.getCompany((Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id"));
+        company = (Company) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("selectedCompany");
         splitCompany(company.getAddress());
     }
 

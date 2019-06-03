@@ -20,7 +20,7 @@ public class Contact extends AbstractCRMEducation implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    @JoinColumn(name = "company_id", referencedColumnName = "id", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
 

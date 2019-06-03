@@ -59,35 +59,22 @@
                 <p:growl id="growl" showDetail="true" sticky="true">
                     <p:autoUpdate/>
                 </p:growl>
-                <p:inputNumber id="SDSearch" styleClass="search_input" value="#{companyBean.number}" minValue="1"
-                               maxValue="99999"
-                               validatorMessage="Введите цифру"
-                               placeholder="Номер">
-                    <p:ajax process="@this" update="@this SDSearch" partialSubmit="true"/>
-                </p:inputNumber>
-                <p:message for="SDSearch"/>
-                <br/><br/><br/>
+                <br/><br/>
 
                 <p:commandButton id="addItem" value="Добавить" styleClass="queryButton" process="@this"
                                  action="#{companyBean.goToAdd}"/>
                 <br/><br/>
-
-                <p:commandButton id="deleteItem" value="Удалить" styleClass="queryButton" process="@this SDSearch"
-                                 update="@this SDSearch" partialSubmit="true"
-                                 action="#{companyBean.remove}"/>
-                <br/><br/>
-
-                <p:commandButton id="EditItem" value="Редактировать" styleClass="queryButton" process="@this SDSearch"
-                                 update="@this SDSearch" partialSubmit="true"
-                                 action="#{companyBean.goToUpdate}"/>
-                <br/><br/><br/>
             </p:panel>
             <h:form>
+
+                <p:contextMenu id="contextMenuCompany" for="Company">
+                    <p:menuitem value="Редактировать" icon="pi pi-search" action="#{companyBean.goToUpdate}"/>
+                    <p:menuitem value="Удалить" update="Company" icon="pi pi-times" action="#{companyBean.remove}"/>
+                </p:contextMenu>
+
                 <p:dataTable id="Company" var="company" value="#{companyBean.companies}" scrollable="true"
-                             scrollHeight="780">
-                    <p:column headerText="Номер" sortBy="#{company.id}">
-                        <h:outputText value="#{company.id}"/>
-                    </p:column>
+                             scrollHeight="780" rowKey="#{company.id}" selection="#{companyBean.selectedCompany}"
+                             selectionMode="single">
                     <p:column headerText="Название" sortBy="#{company.name}" filterBy="#{company.name}"
                               filterMatchMode="contains">
                         <f:facet name="companyName">

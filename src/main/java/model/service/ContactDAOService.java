@@ -5,7 +5,6 @@ import model.entity.Contact;
 import model.hibernateUtil.HibernateUtil;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ContactDAOService {
 
@@ -31,12 +30,8 @@ public class ContactDAOService {
         return contactDAO.createQuery("FROM CONTACT", Contact.class).list();
     }
 
-    public boolean remove(Long id) {
-        Contact contact = contactDAO.get(Contact.class, id);
-        boolean rc = !Objects.isNull(contact);
-        if (rc)
-            contactDAO.delete(contact);
-        return rc;
+    public void remove(Contact contact) {
+        contactDAO.delete(contact);
     }
 
     public Contact getContact(Long id) {

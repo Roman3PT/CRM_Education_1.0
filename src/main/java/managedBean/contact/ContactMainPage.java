@@ -23,12 +23,12 @@ import java.util.Objects;
 public class ContactMainPage implements Serializable {
 
     private List<Contact> contacts;
-    private Long number;
-
+    private Contact selectedContact;
     private ContactDAOService contactDAOService;
 
     @PostConstruct
     public void init() {
+        selectedContact = new Contact();
         contactDAOService = new ContactDAOService();
         contacts = new ArrayList<>();
         contacts.addAll(contactDAOService.getContacts());
@@ -43,29 +43,23 @@ public class ContactMainPage implements Serializable {
     }
 
     public void remove() {
-        if (Objects.isNull(number))
+        if (Objects.isNull(selectedContact))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
         else {
-            if (!contactDAOService.remove(number))
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующий контакт"));
-            else
-                refresh();
+            contactDAOService.remove(selectedContact);
+            refresh();
         }
     }
 
     public void update() {
-        if (Objects.isNull(number))
+        if (Objects.isNull(selectedContact))
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
         else {
-            if (Objects.isNull(contactDAOService.getContact(number)))
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
-            else {
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idContact", number);
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("contactUpdatePage.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("selectedContact", selectedContact);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("contactUpdatePage.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

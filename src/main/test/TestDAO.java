@@ -29,9 +29,4 @@ public class TestDAO {
         List<Student> students = new StudentDAOService().getStudents();
         LOG.info(students);
     }
-
-    @Test
-    public void removeStudent() {
-        new StudentDAOService().remove(5L);
-    }
 }

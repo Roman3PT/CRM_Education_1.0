@@ -24,11 +24,12 @@ import java.util.Objects;
 public class CompanyBean implements Serializable {
 
     private List<Company> companies;
-    private Long number;
+    private Company selectedCompany;
     private CompanyDAOService companyDAOService;
 
     @PostConstruct
     public void init() {
+        selectedCompany = new Company();
         companies = new ArrayList<>();
         companyDAOService = new CompanyDAOService();
         companies.addAll(companyDAOService.getListCompany());
@@ -43,35 +44,32 @@ public class CompanyBean implements Serializable {
     }
 
     public void goToUpdate() {
-        if (Objects.isNull(number))
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
+        if (Objects.isNull(selectedCompany))
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Выберите компанию"));
         else {
-            if (Objects.isNull(companyDAOService.getCompany(number)))
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите существующий номер компании"));
-            else {
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", number);
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("updateCompanyPage.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("selectedCompany", selectedCompany);
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("updateCompanyPage.xhtml");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
+    public void refreshPage() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("companyMainPage.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void remove() {
-        if (Objects.isNull(number))
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
+        if (Objects.isNull(selectedCompany))
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Выберите компанию"));
         else {
-            if (!companyDAOService.remove(number))
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка", "Введите существующий номер компании"));
-            else {
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("companyMainPage.xhtml");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            companyDAOService.remove(selectedCompany);
+            refreshPage();
         }
     }
 
