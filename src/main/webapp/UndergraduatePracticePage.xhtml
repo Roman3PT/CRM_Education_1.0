@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<style type="text/css">
+    .minus {
+        background-color: #fc6d59 !important;
+        background-image: none !important;
+        color: #000000 !important;
+    }
+    .plus {
+        background-color: #6bfc8a !important;
+        background-image: none !important;
+        color: #000000 !important;
+    }
+</style>
+
+<h:head>
+    <title>Практика</title>
+    <h:outputStylesheet name="bodyStyle.css" library="css"/>
+    <h:outputStylesheet name="mainPage.css" library="css"/>
+    <link rel="shortcut icon" href="resources/image/CRM_Education_icon.png" type="image/png"/>
+</h:head>
+
+<h:body styleClass="bodyBackground">
+    <div class="headerCF">
+        <div class="main-menu">
+            <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
+            <p:outputLabel value="ПРАКТИКА" styleClass="qwerty"/>
+            <p:commandButton id="Information" value="Информация" process="@this" onclick="PF('dlg').show()"
+                             style="margin-left: 35%"/>
+            <p:commandButton id="Exit" value="Выход" process="@this" action="#{mainPage.exit}"
+                             update="@this"
+                             styleClass="exitButton">
+            </p:commandButton>
+        </div>
+    </div>
+    <p:dialog header="Информация о проекте" widgetVar="dlg" modal="true" height="200" width="400">
+        <h:outputText
+                value="Данное программное обеспечение разрабатывалось при помощи заведующего кафедры Смелова В.В.
+                 и студента дипломника Богатко Р. И. Всю контактную информацию вы можете найти по ссылке."/>
+        <br/><br/>
+        <a href="https://e.mail.ru/compose/">romanbogatko1998@mail.ru</a>
+    </p:dialog>
+    <p:sidebar id="TreeItems" widgetVar="sidebar1" baseZIndex="10000">
+        <h1 style="font-weight:normal">Меню</h1>
+        <h:form>
+            <p:inputText styleClass="search_input" placeholder="Поиск"/>
+            <br/><br/>
+            <p:tree id="TreeSet" value="#{mainPage.root}" var="node" selectionMode="single"
+                    selection="#{mainPage.selectionNode}" process="@this"
+                    update="@this">
+                <p:treeNode>
+                    <p:commandLink value="#{node}">
+                    </p:commandLink>
+                </p:treeNode>
+            </p:tree>
+            <br/><br/>
+            <p:commandButton id="ChooseTreeItem" value="Поиск" styleClass="queryButton" process="@this TreeSet"
+                             update="@this TreeSet" action="#{mainPage.goToPage}"/>
+        </h:form>
+    </p:sidebar>
+    <div>
+        <div style="display: flex; margin-top: 4px;">
+            <h:form id="eventDataTable">
+
+                <p:contextMenu id="contextMenuStudent" for="Student">
+                    <p:menuitem value="Распределить" icon="pi pi-search" action="#{interShipBean.distribute}"/>
+                </p:contextMenu>
+
+                <p:dataTable id="Student" var="student" value="#{interShipBean.students}" scrollable="true"
+                             scrollHeight="780"
+                             rowKey="#{student.id}"
+                             selection="#{interShipBean.selectedStudent}"
+                             selectionMode="single"
+                             rowStyleClass="#{interShipBean.eventDAOService.getStatusOnPractice(student) ? 'minus' : 'plus'}">
+                    <p:column headerText="ФИО" width="300" sortBy="#{student.fullName}"
+                              filterBy="#{student.fullName}"
+                              filterMatchMode="contains">
+                        <f:facet name="studentName">
+                            <p:inputText onchange="PF('studentName').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{student.fullName}"/>
+                    </p:column>
+                    <p:column headerText="Специальность" width="150" sortBy="#{student.specialty.id}"
+                              filterBy="#{student.specialty.name}"
+                              filterMatchMode="contains">
+                        <f:facet name="specialtyName">
+                            <p:inputText onchange="PF('specialtyName').filter()"/>
+                        </f:facet>
+                        <h:outputLabel value="#{student.specialty.name}"/>
+                    </p:column>
+                    <p:column headerText="Мобильный номер" width="180" sortBy="#{student.phoneNumber}">
+                        <h:outputText value="#{student.phoneNumber}"/>
+                    </p:column>
+                    <p:column headerText="Студенческий билет" width="120" sortBy="#{student.ticketNumber}"
+                              filterBy="#{student.ticketNumber}"
+                              filterMatchMode="contains">
+                        <f:facet name="ticketNumberName">
+                            <p:inputText onchange="PF('ticketNumberName').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{student.ticketNumber}"/>
+                    </p:column>
+                    <p:column headerText="Курс" width="50" sortBy="#{student.courseNumber}"
+                              filterBy="#{student.courseNumber}"
+                              filterMatchMode="contains">
+                        <f:facet name="courseNumber">
+                            <p:inputText onchange="PF('courseNumber').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{student.courseNumber}"/>
+                    </p:column>
+                    <p:column headerText="Группа" width="70" sortBy="#{student.groupNumber}"
+                              filterBy="#{student.groupNumber}"
+                              filterMatchMode="contains">
+                        <f:facet name="groupNumber">
+                            <p:inputText onchange="PF('groupNumber').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{student.groupNumber}"/>
+                    </p:column>
+                    <p:column headerText="Год поступ." width="70" sortBy="#{student.admissionYear}"
+                              filterBy="#{student.admissionYear}"
+                              filterMatchMode="contains">
+                        <h:outputText value="#{student.admissionYear}"/>
+                    </p:column>
+                    <p:column headerText="Учиться" width="70" sortBy="#{student.existing}"
+                              filterBy="#{studentMainPage.studentStyding(student.existing)}"
+                              filterMatchMode="contains">
+                        <f:facet name="existingName">
+                            <p:inputText onchange="PF('existingName').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{studentMainPage.studentStyding(student.existing)}"/>
+                    </p:column>
+                    <p:column headerText="Рейтинг" width="60" sortBy="#{student.rating}"
+                              filterBy="#{student.rating}"
+                              filterMatchMode="contains">
+                        <f:facet name="ratingName">
+                            <p:inputText onchange="PF('ratingName').filter()"/>
+                        </f:facet>
+                        <h:outputText value="#{student.rating}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </div>
+    <div class="footerDown">
+        <div class="marginLeftFooter">
+            <p:clock pattern="dd.MM.yyyy HH:mm:ss"/>
+        </div>
+    </div>
+</h:body>
+</html>

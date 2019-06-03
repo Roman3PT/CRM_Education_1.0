@@ -42,10 +42,13 @@ public class mainPage implements Serializable {
         TreeNode root2 = new DefaultTreeNode("Компания", root);
         TreeNode root3 = new DefaultTreeNode("Событие", root);
         TreeNode root4 = new DefaultTreeNode("Контакты", root);
+        TreeNode root5 = new DefaultTreeNode("Практика", root);
         root1.getChildren().add(new DefaultTreeNode("Меню студентов"));
         root2.getChildren().add(new DefaultTreeNode("Меню компаний"));
         root3.getChildren().add(new DefaultTreeNode("Меню событий"));
         root4.getChildren().add(new DefaultTreeNode("Список контактов"));
+        root5.getChildren().add(new DefaultTreeNode("Производственная"));
+        root5.getChildren().add(new DefaultTreeNode("Преддипломная"));
         selectedEvent = new Event();
         events = new ArrayList<>();
         eventDAOService = new EventDAOService();
@@ -61,6 +64,10 @@ public class mainPage implements Serializable {
             else if (selectionNode.toString().equals(TreeItems.ITEM3.getName()))
                 FacesContext.getCurrentInstance().getExternalContext().redirect("companyMainPage.xhtml");
             else if (selectionNode.toString().equals(TreeItems.ITEM4.getName()))
+                FacesContext.getCurrentInstance().getExternalContext().redirect("contactMainPage.xhtml");
+            else if (selectionNode.toString().equals(TreeItems.ITEM5.getName()))
+                FacesContext.getCurrentInstance().getExternalContext().redirect("InternShipPage.xhtml");
+            else if (selectionNode.toString().equals(TreeItems.ITEM6.getName()))
                 FacesContext.getCurrentInstance().getExternalContext().redirect("contactMainPage.xhtml");
         } catch (IOException e) {
             e.printStackTrace();

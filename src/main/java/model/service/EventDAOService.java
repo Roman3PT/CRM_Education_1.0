@@ -2,6 +2,7 @@ package model.service;
 
 import model.dao.EventDAO;
 import model.entity.Event;
+import model.entity.Student;
 import model.hibernateUtil.HibernateUtil;
 
 import java.util.List;
@@ -34,6 +35,13 @@ public class EventDAOService {
     public List<Event> getEventsToCompany(String companyName) {
         return eventDAO.createQuery("SELECT e FROM EVENT e INNER JOIN COMPANY c ON e.company.id = c.id WHERE c.name = :companyName", Event.class)
                 .setParameter("companyName", companyName).list();
+    }
+
+    public boolean getStatusOnPractice(Student student) {
+        List<Event> events = eventDAO.createQuery("SELECT e FROM EVENT e WHERE e.student.id = :studentId AND e.type.id = :practiceNumber", Event.class)
+                .setParameter("studentId", student.getId())
+                .setParameter("practiceNumber", 1L).list();
+        return events.isEmpty();
     }
 
     public boolean deleteEvent(Long id) {

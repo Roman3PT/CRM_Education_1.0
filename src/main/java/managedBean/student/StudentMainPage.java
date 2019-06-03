@@ -80,14 +80,7 @@ public class StudentMainPage implements Serializable {
         else
             return "Нет";
     }
-
-    public void getStudentIsNotAtPractice() {
-        if (Objects.isNull(course) || Objects.isNull(group)) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Введите корректный номер"));
-        } else
-            studentDAOService.getStudentFromCompany(group, 1);
-    }
-
+    
     public void refreshPage() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("studentMainPage.xhtml");
