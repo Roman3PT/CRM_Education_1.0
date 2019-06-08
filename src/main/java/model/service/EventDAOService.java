@@ -37,10 +37,10 @@ public class EventDAOService {
                 .setParameter("companyName", companyName).list();
     }
 
-    public boolean getStatusOnPractice(Student student) {
+    public boolean getStatusOnPractice(Student student, Long number) {
         List<Event> events = eventDAO.createQuery("SELECT e FROM EVENT e WHERE e.student.id = :studentId AND e.type.id = :practiceNumber", Event.class)
                 .setParameter("studentId", student.getId())
-                .setParameter("practiceNumber", 1L).list();
+                .setParameter("practiceNumber", number).list();
         return events.isEmpty();
     }
 

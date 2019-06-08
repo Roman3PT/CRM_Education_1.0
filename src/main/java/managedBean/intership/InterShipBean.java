@@ -33,7 +33,7 @@ public class InterShipBean implements Serializable {
         selectedStudent = new Student();
         studentDAOService = new StudentDAOService();
         eventDAOService = new EventDAOService();
-        students.addAll(studentDAOService.getStudentsInterShip());
+        students.addAll(studentDAOService.getStudentsInterShip("3"));
     }
 
     public void distribute() {

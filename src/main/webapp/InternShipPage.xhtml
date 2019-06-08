@@ -77,7 +77,7 @@
                              rowKey="#{student.id}"
                              selection="#{interShipBean.selectedStudent}"
                              selectionMode="single"
-                             rowStyleClass="#{interShipBean.eventDAOService.getStatusOnPractice(student) ? 'minus' : 'plus'}">
+                             rowStyleClass="#{interShipBean.eventDAOService.getStatusOnPractice(student, 1) ? 'minus' : 'plus'}">
                     <p:column headerText="ФИО" width="300" sortBy="#{student.fullName}"
                               filterBy="#{student.fullName}"
                               filterMatchMode="contains">
@@ -105,14 +105,6 @@
                         </f:facet>
                         <h:outputText value="#{student.ticketNumber}"/>
                     </p:column>
-                    <p:column headerText="Курс" width="50" sortBy="#{student.courseNumber}"
-                              filterBy="#{student.courseNumber}"
-                              filterMatchMode="contains">
-                        <f:facet name="courseNumber">
-                            <p:inputText onchange="PF('courseNumber').filter()"/>
-                        </f:facet>
-                        <h:outputText value="#{student.courseNumber}"/>
-                    </p:column>
                     <p:column headerText="Группа" width="70" sortBy="#{student.groupNumber}"
                               filterBy="#{student.groupNumber}"
                               filterMatchMode="contains">
@@ -120,19 +112,6 @@
                             <p:inputText onchange="PF('groupNumber').filter()"/>
                         </f:facet>
                         <h:outputText value="#{student.groupNumber}"/>
-                    </p:column>
-                    <p:column headerText="Год поступ." width="70" sortBy="#{student.admissionYear}"
-                              filterBy="#{student.admissionYear}"
-                              filterMatchMode="contains">
-                        <h:outputText value="#{student.admissionYear}"/>
-                    </p:column>
-                    <p:column headerText="Учиться" width="70" sortBy="#{student.existing}"
-                              filterBy="#{studentMainPage.studentStyding(student.existing)}"
-                              filterMatchMode="contains">
-                        <f:facet name="existingName">
-                            <p:inputText onchange="PF('existingName').filter()"/>
-                        </f:facet>
-                        <h:outputText value="#{studentMainPage.studentStyding(student.existing)}"/>
                     </p:column>
                     <p:column headerText="Рейтинг" width="60" sortBy="#{student.rating}"
                               filterBy="#{student.rating}"

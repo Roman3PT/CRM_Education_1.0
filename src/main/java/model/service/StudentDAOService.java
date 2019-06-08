@@ -48,9 +48,9 @@ public final class StudentDAOService {
         studentDAO.update(student);
     }
 
-    public List<Student> getStudentsInterShip() {
+    public List<Student> getStudentsInterShip(String course) {
         return studentDAO.createQuery("SELECT s FROM STUDENT s WHERE s.courseNumber = :course", Student.class)
-                .setParameter("course", "3").list();
+                .setParameter("course", course).list();
     }
 
     public void close() {

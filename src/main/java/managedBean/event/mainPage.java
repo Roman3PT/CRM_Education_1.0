@@ -68,7 +68,7 @@ public class mainPage implements Serializable {
             else if (selectionNode.toString().equals(TreeItems.ITEM5.getName()))
                 FacesContext.getCurrentInstance().getExternalContext().redirect("InternShipPage.xhtml");
             else if (selectionNode.toString().equals(TreeItems.ITEM6.getName()))
-                FacesContext.getCurrentInstance().getExternalContext().redirect("contactMainPage.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("UndergraduatePracticePage.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
